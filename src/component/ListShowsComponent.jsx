@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import CourseDataService from '../service/CourseDataService.js';
+import ShowService from '../service/ShowService.jsx';
 
-const INSTRUCTOR = 'in28minutes'
+const USER = 'user'
 
 class ListShowsComponent extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ class ListShowsComponent extends Component {
     }
 
     refreshShows() {
-        CourseDataService.retrieveAllCourses(INSTRUCTOR)//HARDCODED
+        ShowService.retrieveAllCourses(USER) //HARDCODED
             .then(
                 response => {
                     this.setState({ shows: response.data })
@@ -42,11 +42,11 @@ class ListShowsComponent extends Component {
                         </thead>
                         <tbody>
                             {
-                                this.state.courses.map(
-                                    course =>
-                                        <tr key={course.id}>
-                                            <td>{course.id}</td>
-                                            <td>{course.description}</td>
+                                this.state.shows.map(
+                                    show =>
+                                        <tr key={show.id}>
+                                            <td>{show.id}</td>
+                                            <td>{show.name}</td>
                                         </tr>
                                 )
                             }

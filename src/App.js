@@ -1,5 +1,6 @@
+import React, { Component } from 'react';
 import './App.css';
-import './component/BudgetApp.jsx';
+import BudgetApp from './component/BudgetApp.jsx';
 
 function App() {
   return (

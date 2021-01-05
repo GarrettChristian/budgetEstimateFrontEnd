@@ -6,7 +6,7 @@ var url = config.url.API_URL
 
 const USER = 'user'
 const PASSWORD = 'password'
-const SHOW_API_URL = `${BUDGET_API_URL}/show/${USER}`
+const SHOW_API_URL = `${url}/show/${USER}`
 
 class ShowService {
 
@@ -17,3 +17,5 @@ class ShowService {
         );
     }
 }
+
+export default new ShowService()

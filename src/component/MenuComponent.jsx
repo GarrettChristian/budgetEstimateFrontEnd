@@ -10,9 +10,9 @@ class MenuComponent extends Component {
         return (
             <header>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <div><a href="http://www.in28minutes.com" className="navbar-brand">in28Minutes</a></div>
+                    <div><a className="navbar-brand">Test site for budget tracker</a></div>
                     <ul className="navbar-nav">
-                        <li><Link className="nav-link" to="/courses">Courses</Link></li>
+                        <li><Link className="nav-link" to="/shows">shows</Link></li>
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
                         {!isUserLoggedIn && <li><Link className="nav-link" to="/login">Login</Link></li>}

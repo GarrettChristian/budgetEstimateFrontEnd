@@ -1,5 +1,6 @@
 // AuthenticationService.jsx
 // following https://www.springboottutorial.com/spring-boot-react-full-stack-with-spring-security-basic-and-jwt-authentication
+import axios from 'axios'
 import { config } from './Constants'
 
 var url = config.url.API_URL
@@ -8,28 +9,12 @@ export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
 class AuthenticationService {
 
-    executeBasicAuthenticationService(username, password) {
-        return axios.get(`${url}/basicauth`,
-            { headers: { authorization: this.createBasicAuthToken(username, password) } })
-    }
-
     executeJwtAuthenticationService(username, password) {
         console.log(username);
         return axios.post(`${url}/authenticate`, {
             username,
             password
         })
-    }
-
-    createBasicAuthToken(username, password) {
-        return 'Basic ' + window.btoa(username + ":" + password)
-    }
-
-    registerSuccessfulLogin(username, password) {
-        //let basicAuthHeader = 'Basic ' +  window.btoa(username + ":" + password)
-        //console.log('registerSuccessfulLogin')
-        sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
-        this.setupAxiosInterceptors(this.createBasicAuthToken(username, password))
     }
 
     registerSuccessfulLoginForJwt(username, token) {
