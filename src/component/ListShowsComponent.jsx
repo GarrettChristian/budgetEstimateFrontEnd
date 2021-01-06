@@ -18,7 +18,7 @@ class ListShowsComponent extends Component {
     }
 
     refreshShows() {
-        ShowService.retrieveAllCourses(USER) //HARDCODED
+        ShowService.retrieveAllShows(USER) //HARDCODED
             .then(
                 response => {
                     this.setState({ shows: response.data })
