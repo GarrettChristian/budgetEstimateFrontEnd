@@ -28,6 +28,14 @@
   color: #61dafb;
 }
 
+.menu-navigation-bar {
+  background-color: #01395e;
+}
+
+.menu-navigation-bar-brand {
+  color: white;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +44,5 @@
     transform: rotate(360deg);
   }
 }
+
+

@@ -9,14 +9,19 @@ class MenuComponent extends Component {
 
         return (
             <header>
-                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <div><a className="navbar-brand">Test site for budget tracker</a></div>
-                    <ul className="navbar-nav">
-                        <li><Link className="nav-link" to="/shows">shows</Link></li>
-                    </ul>
-                    <ul className="navbar-nav navbar-collapse justify-content-end">
-                        {!isUserLoggedIn && <li><Link className="nav-link" to="/login">Login</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>}
+                <nav className="navbar navbar-light bg-dark" >
+                    <div className="d-flex flex-nowrap">
+                        <div>
+                            <a className="navbar-brand" style={{color: "white"}}>Budget Tracker</a>
+                        </div>
+                        <ul className="navbar-nav">
+                            <li><Link className="nav-link" to="/shows" style={{color: "white"}}>shows</Link></li>
+                        </ul>
+                        
+                    </div>
+                    <ul className="navbar-nav justify-content-end">
+                        {!isUserLoggedIn && <li><Link className="nav-link" to="/login" style={{color: "white"}}>Login</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout} style={{color: "white"}}>Logout</Link></li>}
                     </ul>
                 </nav>
             </header>
