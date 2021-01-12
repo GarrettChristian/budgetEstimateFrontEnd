@@ -5,6 +5,7 @@ import LoginComponent from './LoginComponent';
 import LogoutComponent from './LogoutComponent';
 import MenuComponent from './MenuComponent';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import NewUserComponent from './NewUserComponent';
 
 class BudgetApp extends Component {
 
@@ -17,6 +18,7 @@ class BudgetApp extends Component {
                         <Switch>
                             <Route path="/" exact component={LoginComponent} />
                             <Route path="/login" exact component={LoginComponent} />
+                            <Route path="/new/user" exact component={NewUserComponent} />
                             <AuthenticatedRoute path="/logout" exact component={LogoutComponent} />
                             <AuthenticatedRoute path="/shows" exact component={ListShowsComponent} />
                         </Switch>

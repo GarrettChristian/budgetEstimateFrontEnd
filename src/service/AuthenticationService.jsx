@@ -9,6 +9,11 @@ export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
 class AuthenticationService {
 
+    creatAccount(newAccount) {
+        console.log("create account")
+        return axios.post(`${url}/new/user`, newAccount)
+    }
+
     executeJwtAuthenticationService(username, password) {
         console.log(username);
         return axios.post(`${url}/authenticate`, {

@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import ShowService from '../service/ShowService.jsx';
 
-const USER = 'user'
-
 class ListShowsComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            name: 'Diffie-Hellman',
             shows: [],
             message: null
         }
@@ -18,7 +17,7 @@ class ListShowsComponent extends Component {
     }
 
     refreshShows() {
-        ShowService.retrieveAllShows(USER) //HARDCODED
+        ShowService.retrieveAllShows()
             .then(
                 response => {
                     this.setState({ shows: response.data })
@@ -30,9 +29,35 @@ class ListShowsComponent extends Component {
     render() {
         console.log('render')
         return (
-            <div className="container">
-                <h3>All Courses</h3>
+            <div className="container mt-3">
+
+                {/* Title Area */}
+                <div className="row border-bottom-custom">
+                    <div className="col-md-8">
+                        <h3>Show Budget Tracker</h3>
+                    </div>
+                    <div className="col-md-4">
+                        <p>Signed in as: {this.state.name}</p>
+                    </div>
+                </div>
+
+                {/* Create New Show Button */}
+                <div className="row mt-3 mb-3">
+                    <div className="col-md-3"></div>
+                    <div className="col align-self-center">
+                    <button type="submit" className="btn btn-primary btn-block" onClick={this.loginClicked}>Create a New Show</button>
+                    </div>
+                    <div className="col-md-3"></div>
+                </div>
+
+                <h3>Your Shows</h3>
                 <div className="container">
+                    { this.state.shows.length === 0 ? ( //If there are no shows dont display this section
+                        <div>
+                        <p>No Shows Currrently...</p>
+                        <p>Create a Show to Start Budgeting!</p>
+                        </div>
+                    ) : (
                     <table className="table">
                         <thead>
                             <tr>
@@ -52,6 +77,7 @@ class ListShowsComponent extends Component {
                             }
                         </tbody>
                     </table>
+                    )}  
                 </div>
             </div>
         )

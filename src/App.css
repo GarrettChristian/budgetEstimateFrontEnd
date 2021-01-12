@@ -28,8 +28,14 @@
   color: #61dafb;
 }
 
-.menu-navigation-bar {
-  background-color: #01395e;
+.border-custom {
+  border-radius: 25px;
+  border: 1px solid #343a40;
+  padding: 20px;
+}
+
+.border-bottom-custom {
+  border-bottom: 1px solid #343a40;
 }
 
 .menu-navigation-bar-brand {

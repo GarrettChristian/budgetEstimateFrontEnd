@@ -7,10 +7,10 @@ constructor(props) {
         super(props)
 
         this.state = {
-            username: 'user',
+            username: '',
             password: '',
-            hasLoginFailed: false,
-            showSuccessMessage: false
+            showErrorMessage: false,
+            errorMessage: 'Login Error'
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -42,94 +42,50 @@ constructor(props) {
                 AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, response.data.token)
                 this.props.history.push(`/shows`)
             }).catch(() => {
-                this.setState({ showSuccessMessage: false })
-                this.setState({ hasLoginFailed: true })
+                this.setState({ showErrorMessage: true })
+                this.setState({ errorMessage: 'Login Error' })
             })
     }
 
     render() {
         return (
-            <div class="container">
-                <div class="row justify-content-center align-self-center">
+            <div className="container">
 
-    
-                <div className="d-flex flex-column justify-content-center">
-                    {/* <h1 class="text-center">Login</h1>
-                    {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
-                    {this.state.showSuccessMessage && <div>Login Sucessful</div>}
-                    <p class="text-center">Email:</p>
-                    <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-                    <br></br>
-                    <p class="text-center">Password:</p>
-                    <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-                    <br></br>
-                    <button className="btn btn-success" onClick={this.loginClicked}>Login</button>                */}
-                          <div className="form-group">
-                     <label>Email address</label>
-                     <input type="email" className="form-control" placeholder="Enter email" />
-                 </div>
+                <div className="row">
+                    <div className="col-md-3"></div>
 
-                 <div className="form-group">
-                     <label>Password</label>
-                     <input type="password" className="form-control" placeholder="Enter password" />
-                 </div>
+                    <div className="mx-auto col mt-5 border-custom">
+                        <h2>Login</h2>
 
-                 <div className="form-group">
-                     <div className="custom-control custom-checkbox">
-                         <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                         <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                     </div>
-                 </div>
+                        {/* Email */}
+                        <div className="form-group">
+                            <label>Email address</label>
+                            <input type="email" className="form-control" placeholder="Enter email" id="username"
+                            name="username" value={this.state.username} onChange={this.handleChange} />
+                        </div>
 
-                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
-                 <p className="forgot-password text-right">
-                     Forgot <a href="#">password?</a>
-                 </p>
+                        {/* Password */}
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input type="password" className="form-control" placeholder="Enter password" id="password"
+                            name="password" value={this.state.password} onChange={this.handleChange} />
+                        </div>
+
+                        <button type="submit" className="btn btn-primary btn-block" onClick={this.loginClicked}>Submit</button>
+
+                        <p className="forgot-password text-right">
+                            <a href="new/user/">Create Account</a>
+                        </p>
+
+                        { this.state.showErrorMessage && // login error message
+                        <div className="alert alert-warning" role="alert">{this.state.errorMessage}</div>
+                        }
+
                     </div>
+                    <div className="col-md-3"></div>
                 </div>
             </div>
 
-            // <form>
-            //     {/* <div class="col w-25 p-3 justify-content-center"> */}
-            //         {/* <h1>Login</h1>
-            //         {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
-            //         {this.state.showSuccessMessage && <div>Login Sucessful</div>}
-            //         <p>Email:</p>
-            //         <br></br> 
-            //         <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-            //         <br></br>
-            //         Password:
-            //         <br></br>
-            //         <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-            //         <br></br>
-            //         <br></br>
-            //         <button className="btn btn-success" onClick={this.loginClicked}>Login</button> */}
-
-            //     <h3>Sign In</h3>
-
-            //     <div className="form-group">
-            //         <label>Email address</label>
-            //         <input type="email" className="form-control" placeholder="Enter email" />
-            //     </div>
-
-            //     <div className="form-group">
-            //         <label>Password</label>
-            //         <input type="password" className="form-control" placeholder="Enter password" />
-            //     </div>
-
-            //     <div className="form-group">
-            //         <div className="custom-control custom-checkbox">
-            //             <input type="checkbox" className="custom-control-input" id="customCheck1" />
-            //             <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-            //         </div>
-            //     </div>
-
-            //     <button type="submit" className="btn btn-primary btn-block">Submit</button>
-            //     <p className="forgot-password text-right">
-            //         Forgot <a href="#">password?</a>
-            //     </p>
-            //     {/* </div> */}
-            // </form>
         )
     }
 }
