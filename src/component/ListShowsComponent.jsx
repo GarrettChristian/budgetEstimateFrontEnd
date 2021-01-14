@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
+import AuthenticationService from '../service/AuthenticationService.jsx';
 import ShowService from '../service/ShowService.jsx';
 
 class ListShowsComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: 'Diffie-Hellman',
+            name: 'Current User',
             shows: [],
             message: null
         }
         this.refreshShows = this.refreshShows.bind(this)
+        this.getName = this.getName.bind(this)
+        this.createShowClicked = this.createShowClicked.bind(this)
     }
 
     componentDidMount() {
         this.refreshShows();
+        this.getName();
     }
 
     refreshShows() {
@@ -25,6 +29,18 @@ class ListShowsComponent extends Component {
             )
     }
 
+    getName() {
+        AuthenticationService.getLoggedInUsersNameFirstLast()
+            .then(
+                response => {
+                    this.setState({ name: response.data })
+                }
+            )
+    }
+
+    createShowClicked() {
+        this.props.history.push(`/shows/create`)
+    }
 
     render() {
         console.log('render')
@@ -45,7 +61,8 @@ class ListShowsComponent extends Component {
                 <div className="row mt-3 mb-3">
                     <div className="col-md-3"></div>
                     <div className="col align-self-center">
-                    <button type="submit" className="btn btn-primary btn-block" onClick={this.loginClicked}>Create a New Show</button>
+                        <button type="submit" className="btn btn-primary btn-block" 
+                        onClick={this.createShowClicked}>Create a New Show</button>
                     </div>
                     <div className="col-md-3"></div>
                 </div>

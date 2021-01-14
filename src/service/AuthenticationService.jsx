@@ -57,6 +57,10 @@ class AuthenticationService {
             }
         )
     }
+
+    getLoggedInUsersNameFirstLast() {
+        return axios.get(`${url}/users/name`, )
+    }
 }
 
 export default new AuthenticationService()

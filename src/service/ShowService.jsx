@@ -12,6 +12,11 @@ class ShowService {
         return axios.get(`${SHOW_API_URL}/get/all/user`,
         );
     }
+
+    createNewShow(show) {
+        return axios.post(`${SHOW_API_URL}/add/new`, show,
+        );
+    }
 }
 
 export default new ShowService()

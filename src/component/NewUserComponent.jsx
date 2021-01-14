@@ -38,7 +38,7 @@ constructor(props) {
         AuthenticationService
             .creatAccount(account)
             .then((response) => {
-                if (response.success) {
+                if (response.data.success) {
                     this.setState({ showErrorMessage: false })
                     this.login()
                 } else {
