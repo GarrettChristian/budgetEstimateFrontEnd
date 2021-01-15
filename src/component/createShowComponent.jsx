@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import AuthenticationService from '../service/AuthenticationService';
 import ShowService from '../service/ShowService';
 
 class CreateShowComponent extends Component {
@@ -38,7 +37,7 @@ constructor(props) {
             venue: this.state.venue,
             writer: this.state.writer,
             director: this.state.director,
-            designer: this.designer,
+            designer: this.state.designer,
             technicalDirector: this.state.technicalDirector,
             estimateType: this.state.estimateType
         }

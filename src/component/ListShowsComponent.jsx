@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AuthenticationService from '../service/AuthenticationService.jsx';
 import ShowService from '../service/ShowService.jsx';
+import ShowCardComponent from './ShowCardComponent'
 
 class ListShowsComponent extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class ListShowsComponent extends Component {
         this.refreshShows = this.refreshShows.bind(this)
         this.getName = this.getName.bind(this)
         this.createShowClicked = this.createShowClicked.bind(this)
+        this.showClicked = this.showClicked.bind(this)
     }
 
     componentDidMount() {
@@ -40,6 +42,11 @@ class ListShowsComponent extends Component {
 
     createShowClicked() {
         this.props.history.push(`/shows/create`)
+    }
+
+    showClicked(id) {
+        console.log(id)
+        this.props.history.push(`/show`)
     }
 
     render() {
@@ -75,25 +82,11 @@ class ListShowsComponent extends Component {
                         <p>Create a Show to Start Budgeting!</p>
                         </div>
                     ) : (
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.state.shows.map(
-                                    show =>
-                                        <tr key={show.id}>
-                                            <td>{show.id}</td>
-                                            <td>{show.name}</td>
-                                        </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
+                        this.state.shows.map(
+                            show =>
+                                <ShowCardComponent cardClicked={this.showClicked} show={show}>
+                                </ShowCardComponent>
+                        )
                     )}  
                 </div>
             </div>

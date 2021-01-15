@@ -4,6 +4,8 @@ import AuthenticationService from '../service/AuthenticationService';
 
 class MenuComponent extends Component {
 
+    
+
     render() {
         const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
 
