@@ -46,7 +46,10 @@ class ListShowsComponent extends Component {
 
     showClicked(id) {
         console.log(id)
-        this.props.history.push(`/show`)
+        this.props.history.push({
+            pathname: '/show',
+            state: { showId: id }
+        })
     }
 
     render() {
