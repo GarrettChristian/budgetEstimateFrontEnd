@@ -7,7 +7,7 @@ import MenuComponent from './MenuComponent';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import NewUserComponent from './NewUserComponent';
 import CreateShowComponent from './CreateShowComponent';
-import ShowComponent from './ShowComponent';
+import ShowComponent from './showComponents/ShowComponent';
 import AboutComponent from './AboutComponent';
 
 class BudgetApp extends Component {

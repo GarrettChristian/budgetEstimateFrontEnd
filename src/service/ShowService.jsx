@@ -13,6 +13,13 @@ class ShowService {
         );
     }
 
+    retrieveShow(id) {
+        return axios.get(`${SHOW_API_URL}/get`, { params: {
+            id: id
+          }},
+        );
+    }
+
     createNewShow(show) {
         return axios.post(`${SHOW_API_URL}/add/new`, show,
         );
