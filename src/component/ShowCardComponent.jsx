@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import moment from 'moment';
+import moment from 'moment'
 
 class ShowCardComponent extends Component {
     constructor(props) {

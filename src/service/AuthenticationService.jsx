@@ -6,6 +6,7 @@ import { config } from './Constants'
 var url = config.url.API_URL
 
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+export const USER_FIRST_AND_LAST_SESSION_ATTIRBUTE = 'user'
 
 class AuthenticationService {
 
@@ -61,6 +62,17 @@ class AuthenticationService {
     getLoggedInUsersNameFirstLast() {
         return axios.get(`${url}/users/name`, )
     }
+
+    registerFirstAndLastName(name) {
+        sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, name)
+    }
+
+    getLoggedInUsersNameFirstLastFromStored() {
+        let user = sessionStorage.getItem(USER_FIRST_AND_LAST_SESSION_ATTIRBUTE)
+        if (user === null) return ''
+        return user
+    }
+
 }
 
 export default new AuthenticationService()

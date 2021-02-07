@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class AboutComponent extends Component {
     constructor(props) {
@@ -10,45 +13,45 @@ class AboutComponent extends Component {
     render() {
         console.log('render')
         return (
-            <div className="container mt-3">
+            <Container className="mt-3">
 
                 <h1>About</h1>
                 <p className="ml-3 text-wrap">Created By: Garrett Christian</p>
 
                 <h2>Why</h2>
-                <div className="ml-3 col text-wrap">
-                    <div className="row">
+                <Col className="ml-3 text-wrap">
+                    <Row>
                         <p>
                             Created for my James Madison University theater independent study course with Professor Smallwood. 
                             The course's goal was to explore how the 
                             software engineering development cycle can be applied to a 
                             theater problem. Specifically to create an application for tracking worker hours on theatrical projects.
                         </p>
-                    </div>
-                </div>
+                    </Row>
+                </Col>
 
                 <h2>Where to find the code</h2>
-                <div className="ml-3 col text-wrap">
-                    <div className="row">
-                        <div className="col-md-2">
+                <Col className="ml-3 text-wrap">
+                    <Row>
+                        <Col sm={2}>
                             <p>Front End:</p>
-                        </div>
-                        <div className="col-md-10">
+                        </Col>
+                        <Col sm={10}>
                             <a className="text-wrap" href="https://github.com/GarrettChristian/budget_estimate_front_end">
                             https://github.com/GarrettChristian/budget_estimate_front_end</a>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-2">
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm={2}>
                             <p>Back End:</p>
-                        </div>
-                        <div className="col-md-10">
+                        </Col>
+                        <Col sm={10}>
                             <a href="https://github.com/GarrettChristian/BudgetEstimate">
                             https://github.com/GarrettChristian/BudgetEstimate</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </Col>
+                    </Row>
+                </Col>
+            </Container>
         )
     }
 }
