@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button'
 
 class LoginComponent extends Component {
 
-constructor(props) {
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -44,8 +44,11 @@ constructor(props) {
         AuthenticationService
             .executeJwtAuthenticationService(this.state.username, this.state.password)
             .then((response) => {
+                console.log("here???")
                 AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, response.data.token)
-                this.props.history.push(`/productions`)
+                console.log("here 22???")
+                this.props.history.push(`/projects`)
+                console.log("here 23???")
             }).catch(() => {
                 this.setState({ showErrorMessage: true })
                 this.setState({ errorMessage: 'Login Error' })

@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
 class LogoutComponent extends Component {
+    
     render() {
         return (
             <Container className="mt-3">

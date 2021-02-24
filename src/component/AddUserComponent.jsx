@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 
 class AddUserComponent extends Component {
 
-constructor(props) {
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -61,7 +61,7 @@ constructor(props) {
         .executeJwtAuthenticationService(this.state.username, this.state.password)
         .then((response) => {
             AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, response.data.token)
-            this.props.history.push(`/shows`)
+            this.props.history.push(`/projects`)
         }).catch(() => {
             this.setState({ showErrorMessage: true })
             this.setState({errorMessage: "Account creation failed to login"})
