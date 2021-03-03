@@ -12,16 +12,6 @@ class NavigationBar extends Component{
         this.state = {
             isLoggedIn : AuthenticationService.isUserLoggedIn()
         }
-        this.handleChange = this.handleChange.bind(this)
-    }
-
-    handleChange(event) {
-        this.setState(
-            {
-                [event.target.name]
-                    : event.target.value
-            }
-        )
     }
 
     componentDidUpdate(prevProps) {
@@ -29,31 +19,11 @@ class NavigationBar extends Component{
         if (this.props.location.pathname !== prevProps.location.pathname) {
             console.log("update!", this.state.isLoggedIn)
             var isUserLoggedIn = AuthenticationService.isUserLoggedIn()
-            // var event
-            // event.name = this.state.isLoggedIn;
-            // event.value = AuthenticationService.isUserLoggedIn();
-            // this.handleChange(event)
-            // var loggedInUser = AuthenticationService.isUserLoggedIn()
             this.setState({isLoggedIn: isUserLoggedIn})
-            // this.setState(this.state.loggedInUserName, loggedInUser)
         }
     }
-
-    // useEffect(() => {
-    //     history.listen(dismissAllFlags)
-    // });
-
-    // getName() {
-    //     AuthenticationService.getLoggedInUsersNameFirstLast()
-    //         .then(
-    //             response => {
-    //                 this.setState({ name: response.data })
-    //             }
-    //         )
-    // }
-
+    
     render() {
-        // const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
 
         return(
             <>

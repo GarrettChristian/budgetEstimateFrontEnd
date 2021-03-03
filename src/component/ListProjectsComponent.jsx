@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import AuthenticationService from '../service/AuthenticationService.jsx'
 import ProjectService from '../service/ProjectService.jsx'
 import ProjectCardComponent from './ProjectCardComponent'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class ListProjectsComponent extends Component {
 
@@ -45,41 +47,39 @@ class ListProjectsComponent extends Component {
         this.props.history.push(`/projects/create`)
     }
 
-    projectClicked(id) {
-        console.log(id)
+    projectClicked(projectId) {
+        console.log(projectId)
         this.props.history.push({
-            pathname: '/project',
-            state: { projectId: id }
+            pathname: '/project/' + 
+            projectId,
+            // state: { projectId: id }
         })
     }
 
     render() {
         console.log('render')
         return (
-            <div className="container mt-3">
+            <Container className="mt-3">
 
                 {/* Title Area */}
-                <div className="row border-bottom-custom">
-                    <div className="col-md-8">
+                <Row className="border-bottom-custom">
+                    <Col xs={8}>
                         <h3>Project Budget Tracker</h3>
-                    </div>
-                    {/* <div className="col-md-4">
-                        <p>Signed in as: {this.state.name}</p>
-                    </div> */}
-                </div>
+                    </Col> 
+                </Row>
 
                 {/* Create New Project Button */}
-                <div className="row mt-3 mb-3">
-                    <div className="col-md-3"></div>
-                    <div className="col align-self-center">
+                <Row className="mt-3 mb-3">
+                    <Col xs={3}/>
+                    <Col xs={7}>
                         <button type="submit" className="btn btn-primary btn-block" 
                         onClick={this.createProjectClicked}>Create a New Project</button>
-                    </div>
-                    <div className="col-md-3"></div>
-                </div>
+                    </Col>
+                    <Col xs={3}/>
+                </Row>
 
-                <h3>Your Projects {AuthenticationService.getLoggedInUserName()} {AuthenticationService.ge}</h3>
-                <div className="container">
+                <h3>Your Projects:</h3>
+                <Container>
                     { this.state.projects.length === 0 ? ( //If there are no projects dont display this section
                         <div>
                         <p>No Projects Currrently...</p>
@@ -92,8 +92,8 @@ class ListProjectsComponent extends Component {
                                 </ProjectCardComponent>
                         )
                     )}  
-                </div>
-            </div>
+                </Container>
+            </Container>
         )
     }
 }

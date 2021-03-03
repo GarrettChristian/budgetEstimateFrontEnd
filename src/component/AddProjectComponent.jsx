@@ -76,6 +76,7 @@ class AddProjectComponent extends Component {
     render() {
         return (
             <Container className="mt-3">
+
                 <Row>
                     <Col xs={1}/>
 
@@ -149,9 +150,6 @@ class AddProjectComponent extends Component {
                         
                             <Row>
                                 <Col>
-                                {/* <Button variant="primary" type="submit">
-                                    Submit
-                                </Button> */}
                                     <Button type="cancel" className="btn btn-secondary btn-block" onClick={this.cancelClicked}>Cancel</Button>
                                 </Col>
                                 <Col xs={4}/>

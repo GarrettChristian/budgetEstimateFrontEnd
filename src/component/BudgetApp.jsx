@@ -16,6 +16,7 @@ import LogoutComponent from './LogoutComponent'
 import ListProjectsComponent from "./ListProjectsComponent"
 import AuthenticatedRoute from "./AuthenticatedRoute"
 import AddProjectComponent from "./AddProjectComponent"
+import ProjectDetailsComponent from "./ProjectDetailsComponent"
 
 class BudgetApp extends Component {
 
@@ -69,6 +70,7 @@ class BudgetApp extends Component {
                   <Route path="/new/user" exact component={AddUserComponent} />
                   <AuthenticatedRoute path="/projects" exact component={ListProjectsComponent} />
                   <AuthenticatedRoute path="/projects/create" exact component={AddProjectComponent} />
+                  <AuthenticatedRoute path="/project/:id" exact component={ProjectDetailsComponent}/>
               </Switch>
             </div>
           </Router>
