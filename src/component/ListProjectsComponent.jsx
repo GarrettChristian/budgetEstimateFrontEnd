@@ -34,15 +34,6 @@ class ListProjectsComponent extends Component {
             )
     }
 
-    // getName() {
-    //     AuthenticationService.getLoggedInUsersNameFirstLast()
-    //         .then(
-    //             response => {
-    //                 this.setState({ name: response.data })
-    //             }
-    //         )
-    // }
-
     createProjectClicked() {
         this.props.history.push(`/projects/create`)
     }
@@ -52,7 +43,6 @@ class ListProjectsComponent extends Component {
         this.props.history.push({
             pathname: '/project/' + 
             projectId,
-            // state: { projectId: id }
         })
     }
 

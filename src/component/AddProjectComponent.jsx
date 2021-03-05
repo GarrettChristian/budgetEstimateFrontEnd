@@ -83,7 +83,6 @@ class AddProjectComponent extends Component {
                     <Col md={10}>
                         <h2>Create New Project</h2>
 
-                        
                         {/* Project Name */}
                         <Form>
                             <Form.Group as={Row} controlId="projectName">

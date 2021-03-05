@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-import ProjectService from '../service/ProjectService';
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import ProjectService from '../service/ProjectService.jsx'
 
 class SummaryComponent extends Component {
 
@@ -12,6 +8,7 @@ class SummaryComponent extends Component {
         super(props)
 
         this.state = {
+            project: ''
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -23,11 +20,23 @@ class SummaryComponent extends Component {
         )
     }
 
+    componentDidMount() {
+        this.refreshProjects();
+    }
+
+    refreshProjects() {
+        ProjectService.retrieveProject(this.props.match.params.id)
+            .then(
+                response => {
+                    this.setState({ project: response.data })
+                }
+            )
+    }
+
     render() {
         return (
             <Container className="mt-3">
-                <h2>{this.props.showId}</h2>
-                <h2>SUMMARY</h2>
+                <h2>Project {this.state.project.name}</h2>
             </Container>
         )
     }

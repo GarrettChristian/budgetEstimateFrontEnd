@@ -49,7 +49,6 @@ class AuthenticationService {
 
     getLoggedInUserName() {
         let user = sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME)
-        console.log("here?? ", user)
         if (user === null) return ''
         return user
     }
@@ -71,10 +70,8 @@ class AuthenticationService {
             headers: {
               'Authorization':  localStorage.getItem("JWT")
             }
-          })
+        })
     }
-
-    
 
     // registerFirstAndLastName(name) {
     //     sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, name)

@@ -15,9 +15,7 @@ class NavigationBar extends Component{
     }
 
     componentDidUpdate(prevProps) {
-        console.log("did update")
         if (this.props.location.pathname !== prevProps.location.pathname) {
-            console.log("update!", this.state.isLoggedIn)
             var isUserLoggedIn = AuthenticationService.isUserLoggedIn()
             this.setState({isLoggedIn: isUserLoggedIn})
         }

@@ -2,12 +2,8 @@ import React, { Component } from 'react'
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link,
-    useRouteMatch,
-    useParams
+    Route
   } from "react-router-dom"
-import AuthenticationService from '../service/AuthenticationService'
 import NavigationBar from "./NavigationBar"
 import LoginComponent from './LoginComponent'
 import AboutComponent from './AboutComponent'
@@ -70,7 +66,8 @@ class BudgetApp extends Component {
                   <Route path="/new/user" exact component={AddUserComponent} />
                   <AuthenticatedRoute path="/projects" exact component={ListProjectsComponent} />
                   <AuthenticatedRoute path="/projects/create" exact component={AddProjectComponent} />
-                  <AuthenticatedRoute path="/project/:id" exact component={ProjectDetailsComponent}/>
+                  <AuthenticatedRoute path="/project/:id" component={ProjectDetailsComponent}/>
+                  {/* <AuthenticatedRoute path="/project/:id" render={(props) => <ProjectDetailsComponent {...props} />} /> */}
               </Switch>
             </div>
           </Router>
@@ -80,13 +77,3 @@ class BudgetApp extends Component {
 }
 
 export default BudgetApp
-
-
-{/* <Route path="/" exact component={LoginComponent} />
-<Route path="/login" exact component={LoginComponent} />
-<Route path="/new/user" exact component={NewUserComponent} />
-<Route path="/about" exact component={AboutComponent} />
-<AuthenticatedRoute path="/logout" exact component={LogoutComponent} />
-<AuthenticatedRoute path="/shows" exact component={ListShowsComponent} />
-<AuthenticatedRoute path="/shows/create" exact component={CreateShowComponent} />
-<AuthenticatedRoute path="/show" render={(props) => <ShowComponent {...props} />} /> */}

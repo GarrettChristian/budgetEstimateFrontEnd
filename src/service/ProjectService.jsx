@@ -4,12 +4,12 @@ import { config } from './Constants'
 
 var url = config.url.API_URL
 
-const SHOW_API_URL = `${url}/show`
+const PROJECT_API_URL = `${url}/project`
 
 class ProjectService {
 
     retrieveAllProjects() {
-        return axios.get(`${SHOW_API_URL}/get/all/user`, {
+        return axios.get(`${PROJECT_API_URL}/get/all/user`, {
             headers: {
               'Authorization':  localStorage.getItem("JWT")
             }
@@ -19,7 +19,7 @@ class ProjectService {
 
     retrieveProject(id) {
         console.log("look here it is?? ", localStorage.getItem("JWT"))
-        return axios.get(`${SHOW_API_URL}/get`, { params: {
+        return axios.get(`${PROJECT_API_URL}/get`, { params: {
             id: id
           }}, {
             headers: {
@@ -30,7 +30,7 @@ class ProjectService {
     }
 
     createNewProject(show) {
-        return axios.post(`${SHOW_API_URL}/add/new`, show, {
+        return axios.post(`${PROJECT_API_URL}/add/new`, show, {
             headers: {
               'Authorization':  localStorage.getItem("JWT")
             }
