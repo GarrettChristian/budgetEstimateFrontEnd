@@ -149,11 +149,11 @@ class AddProjectComponent extends Component {
                         
                             <Row>
                                 <Col>
-                                    <Button type="cancel" className="btn btn-secondary btn-block" onClick={this.cancelClicked}>Cancel</Button>
+                                    <Button type="cancel" variant="secondary" block onClick={this.cancelClicked}>Cancel</Button>
                                 </Col>
                                 <Col xs={4}/>
                                 <Col>
-                                    <Button type="submit" className="btn btn-primary btn-block" onClick={this.createClicked}>Create</Button>
+                                    <Button type="submit" block onClick={this.createClicked}>Create</Button>
                                 </Col>
                             </Row>
 

@@ -19,14 +19,14 @@ class ProjectService {
 
     retrieveProject(id) {
         console.log("look here it is?? ", localStorage.getItem("JWT"))
-        return axios.get(`${PROJECT_API_URL}/get`, { params: {
+        let config = {
+          headers: {'Authorization': localStorage.getItem("JWT")},
+          params: {
             id: id
-          }}, {
-            headers: {
-              'Authorization':  localStorage.getItem("JWT")
-            }
-          }
-        );
+          },
+        }
+
+        return axios.get(`${PROJECT_API_URL}/get`, config);
     }
 
     createNewProject(show) {

@@ -76,17 +76,19 @@ class LoginComponent extends Component {
                                 <Form.Control type="password" placeholder="Password"
                                 name="password" value={this.state.password} onChange={this.handleChange}/>
                             </Form.Group>
+                            
+                            <Button variant="primary" size="md" block onClick={this.loginClicked}>Submit</Button>
+
+                            <p className="forgot-password text-right">
+                                <a href="new/user/">Create Account</a>
+                            </p>
+
+                            { this.state.showErrorMessage && // login error message
+                            <div className="alert alert-warning" role="alert">{this.state.errorMessage}</div>
+                            }
                         </Form>
 
-                        <Button variant="primary" size="md" block onClick={this.loginClicked}>Submit</Button>
-
-                        <p className="forgot-password text-right">
-                            <a href="new/user/">Create Account</a>
-                        </p>
-
-                        { this.state.showErrorMessage && // login error message
-                        <div className="alert alert-warning" role="alert">{this.state.errorMessage}</div>
-                        }
+                        
 
                     </Col>
 

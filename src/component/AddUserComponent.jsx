@@ -130,7 +130,7 @@ class AddUserComponent extends Component {
 
                         </Form>
 
-                        <button type="submit" className="btn btn-primary btn-block" onClick={this.createClicked}>Submit</button>
+                        <button type="submit" block onClick={this.createClicked}>Submit</button>
 
                         { this.state.showErrorMessage && // Account creation error
                         <div class="alert alert-warning" role="alert">{this.state.errorMessage}</div>

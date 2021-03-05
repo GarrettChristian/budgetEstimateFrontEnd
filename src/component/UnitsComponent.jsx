@@ -5,6 +5,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import {withRouter} from "react-router-dom"
 import Table from 'react-bootstrap/Table'
 import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class UnitsComponent extends Component {
 
@@ -33,17 +34,21 @@ class UnitsComponent extends Component {
             name: "Flat 1",
             description: "fake desciription flat1",
             build: 2,
+            buildComplete: 2,
             loadIn: 2,
+            loadInComplete: 1,
             materials: 7,
-            completion: 45
+            completion: Math.floor((2 + 1) / (2 + 2) * 100)
         }
         var unit2 = {
             name: "Flat 2",
             description: "fake desciription flat2",
             build: 22,
+            buildComplete: 12,
             loadIn: 22,
+            loadInComplete: 0,
             materials: 72,
-            completion: 70
+            completion: Math.floor((12 + 0) / (22 + 22) * 100)
         }
 
         arry.push(unit1)
@@ -82,7 +87,16 @@ class UnitsComponent extends Component {
                 <Button onClick={this.addUnitClicked.bind(this)}>add new unit??</Button> */}
                 {/* <ProgressBar className="mt-2" striped now={45} label={`${45}%`} /> */}
                 
-                <h2>Project Name's Unit's</h2>
+                <h2 className="border-bottom-custom">Project Units</h2>
+
+                {/* Create New Unit Button */}
+                <Row className="mt-3">
+                    <Col xs={2}/>
+                    <Col>
+                        <Button block onClick={this.addUnitClicked.bind(this)}>Add a New Unit</Button>
+                    </Col>
+                    <Col xs={2}/>
+                </Row>
 
                 <Table className="mt-3" striped bordered hover>
                     <thead>
@@ -99,9 +113,81 @@ class UnitsComponent extends Component {
                             unit =>
                             <tr>
                             <th>{unit.name}</th>
+                            <td>{unit.buildComplete} / {unit.build} hours</td>
+                            <td>{unit.loadInComplete} / {unit.loadIn} hours</td>
+                            <td>${unit.materials}</td>
+                            <td><ProgressBar striped now={unit.completion} label={`${unit.completion}%`} /></td>
+                            </tr>
+                        )
+                    } 
+
+                    <tr>
+                    <th></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+
+                    <tr>
+                    <th>Totals</th>
+                    <td>{this.state.totals.build}</td>
+                    <td>{this.state.totals.loadIn}</td>
+                    <td>{this.state.totals.materials}</td>
+                    <td><ProgressBar striped now={this.state.totals.completion} label={`${this.state.totals.completion}%`} /></td>
+                    </tr>
+                    </tbody>
+                </Table>
+                
+                <h2>alt look</h2>
+                <Table className="mt-3" striped bordered hover>
+                    <thead>
+                        <tr>
+                        <th>Element</th>
+                        <th>Build (Hours)</th>
+                        <th>Load In (Hours)</th>
+                        <th>Materials</th>
+                        <th>Completion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.units.map(
+                            unit =>
+                            <tr>
+                            <th>{unit.name}</th>
                             <td>{unit.build}</td>
                             <td>{unit.loadIn}</td>
-                            <td>{unit.materials}</td>
+                            <td>${unit.materials}</td>
+                            <td><ProgressBar striped now={unit.completion} label={`${unit.completion}%`} /></td>
+                            </tr>
+                        )
+                    } 
+                    </tbody>
+                </Table>
+
+                <h2>alt look</h2>
+                <Table className="mt-3" striped bordered hover>
+                    <thead>
+                        <tr>
+                        <th>Element</th>
+                        <th>Build Complete</th>
+                        <th>Build Total</th>
+                        <th>Load In Complete</th>
+                        <th>Load In Total</th>
+                        <th>Materials</th>
+                        <th>Completion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.units.map(
+                            unit =>
+                            <tr>
+                            <th>{unit.name}</th>
+                            <td>{unit.buildComplete}</td>
+                            <td>{unit.build}</td>
+                            <td>{unit.loadInComplete}</td>
+                            <td>{unit.loadIn}</td>
+                            <td>${unit.materials}</td>
                             <td><ProgressBar striped now={unit.completion} label={`${unit.completion}%`} /></td>
                             </tr>
                         )
@@ -127,7 +213,7 @@ class UnitsComponent extends Component {
                             <th>{unit.name}</th>
                             <td>{unit.build}</td>
                             <td>{unit.loadIn}</td>
-                            <td>{unit.materials}</td>
+                            <td>${unit.materials}</td>
                             </tr>
                             <tr>
                             <th colSpan="4"><ProgressBar striped now={unit.completion} label={`${unit.completion}% complete`} /></th>
@@ -138,160 +224,41 @@ class UnitsComponent extends Component {
                     </tbody>
                 </Table>
 
-                
-
-                <div className="row mt-3">
-                <table class="table table-striped">
-                <thead>
-                    <tr>
-                    <th scope="col">Element</th>
-                    <th scope="col">Build</th>
-                    <th scope="col">Load In</th>
-                    <th scope="col">Materials</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <h2>alt look</h2>
+                <Table className="mt-3" striped bordered hover>
+                    <thead>
+                        <tr>
+                        <th>Element</th>
+                        <th>Build Complete</th>
+                        <th>Build Total</th>
+                        <th>Load In Complete</th>
+                        <th>Load In Total</th>
+                        <th>Materials</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     {this.state.units.map(
                             unit =>
-                                <tr>
-                                <th scope="row">{unit.name}</th>
-                                <td>{unit.build}</td>
-                                <td>{unit.loadIn}</td>
-                                <td>{unit.materials}</td>
-                                </tr>
+                            <>
+                            <tr>
+                            <th>{unit.name}</th>
+                            <td>{unit.buildComplete}</td>
+                            <td>{unit.build}</td>
+                            <td>{unit.loadInComplete}</td>
+                            <td>{unit.loadIn}</td>
+                            <td>${unit.materials}</td>
+                            </tr>
+                            <tr>
+                            <th></th>
+                            <th colSpan="5"><ProgressBar striped now={unit.completion} label={`${unit.completion}% complete`} /></th>
+                            </tr>
+                            </>
                         )
                     } 
 
-                    <tr>
-                    <th scope="row"></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    </tr>
+                    </tbody>
+                </Table>
 
-                    <tr>
-                    <th scope="row">Totals</th>
-                    <td>{this.state.totals.build}</td>
-                    <td>{this.state.totals.loadIn}</td>
-                    <td>{this.state.totals.materials}</td>
-                    </tr>
-                </tbody>
-                </table>
-                </div>
-
-                <h2 className="border-bottom-custom mt-2">Units</h2>
-                {/* Create New Unit Button */}
-                <div className="row mt-3 mb-3">
-                    <div className="col-md-3"></div>
-                    <div className="col align-self-center">
-                        <button type="submit" className="btn btn-primary btn-block" 
-                        onClick={this.createShowClicked}>Add a New Unit</button>
-                    </div>
-                    <div className="col-md-3"></div>
-                </div>
-
-                <div className="container">
-                    { this.state.units.length === 0 ? ( //If there are no units dont display this section
-                        <div>
-                        <p>No Units Currrently...</p>
-                        <p>Add a unit!</p>
-                        </div>
-                    ) : (
-                        this.state.units.map(
-                            unit =>
-                                <div className="container row mt-2 border-custom-card bg-light" >
-                                {/* onClick={() => this.props.cardClicked(this.state.show.uniqueId)}> */}
-                    
-                                    {/* Type and Created Date */}
-                                    <div className="col">
-                                        <h4>{unit.name}</h4>
-                                    </div>
-
-                                    {/* <div className="col-md-2">
-                                        <button type="submit" className="btn btn-primary btn-block" >Duplicate</button>
-                                    </div> */}
-
-                                    <div className="col-md-2 mt-1 mb-1">
-                                        <button type="submit" className="btn btn-primary btn-block" data-toggle="modal" data-target="#confirmFinished">
-                                        Mark Finished</button>
-                                    </div>
-                                    
-                                    {/* Confirm mark complete Modal */}
-                                    <div class="modal fade" id="confirmFinished" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            ...
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
-
-                                    <div className="col-md-2 mt-1 mb-1">
-                                        {/* <button type="submit" className="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModalCenter">
-                                        Delete</button> */}
-
-
-                                        {/* Confirm delete Modal */}
-
-                                        {/* <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                ...
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </div> */}
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                        Launch demo modal
-                                        </button>
-
-                                        <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                ...
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                        )
-                    )}  
-                </div>
             </Container>
         )
     }
