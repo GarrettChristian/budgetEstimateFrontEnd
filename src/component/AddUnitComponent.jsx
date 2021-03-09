@@ -46,8 +46,8 @@ class AddUnitComponent extends Component {
             var newSubItem = {
                 name: "",
                 description: "",
-                workHours: 0,
-                numberOfCrew: 0
+                workHours: "",
+                numberOfCrew: ""
             }
 
             const buildItems = [...state.buildItems, newSubItem]
@@ -98,7 +98,7 @@ class AddUnitComponent extends Component {
 
         const buildItems = [...this.state.buildItems];
 
-        item.numberofCrew = event.target.value 
+        item.numberOfCrew = event.target.value 
         buildItems.splice(index, 1, item); // replaces 1 element at specificed index
 
         this.setState({
@@ -178,7 +178,7 @@ class AddUnitComponent extends Component {
 
         const loadInItems = [...this.state.loadInItems];
 
-        item.numberofCrew = event.target.value 
+        item.numberOfCrew = event.target.value 
         loadInItems.splice(index, 1, item); // replaces 1 element at specificed index
 
         this.setState({
@@ -320,7 +320,6 @@ class AddUnitComponent extends Component {
                             <Row className="mt-2">
                                 <Col xs={5}>
                                 <Form.Group controlId="buildItemName">
-                                    <Form.Label>Name</Form.Label>
                                     <Form.Control type="text" placeholder="Name" 
                                     name="name" value={item.name} size="sm"
                                     onChange={this.handleBuildNameChange.bind(this, index, item)}/>
@@ -328,17 +327,15 @@ class AddUnitComponent extends Component {
                                 </Col>
                                 <Col xs={3}>
                                     <Form.Group controlId="buildWorkHours">
-                                        <Form.Label>Work Hours</Form.Label>
-                                        <Form.Control type="text" placeholder="0" 
+                                        <Form.Control type="text" placeholder="Work Hours" 
                                         name="workHours" value={item.workHours} size="sm"
                                         onChange={this.handleBuildWorkHoursChange.bind(this, index, item)}/>
                                     </Form.Group>
                                 </Col>
                                 <Col xs={3}>
                                     <Form.Group controlId="buildNumberOfCrew">
-                                        <Form.Label>Number of Crew</Form.Label>
-                                        <Form.Control type="text" placeholder="0" 
-                                        name="numberOfCrew" value={item.description} size="sm"
+                                        <Form.Control type="text" placeholder="Number of Crew" 
+                                        name="numberOfCrew" value={item.numberOfCrew} size="sm"
                                         onChange={this.handleBuildNumberofCrewChange.bind(this, index, item)}/>
                                     </Form.Group>
                                 </Col>
@@ -347,7 +344,6 @@ class AddUnitComponent extends Component {
                                 </Col>
                             </Row>
                             <Form.Group controlId="buildDescription">
-                                <Form.Label>Description</Form.Label>
                                 <Form.Control type="text" placeholder="Description" 
                                 name="description" value={item.description} size="sm"
                                 onChange={this.handleBuildDescriptionChange.bind(this, index, item)}/>
