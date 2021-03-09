@@ -11,9 +11,62 @@ class AddUnitComponent extends Component {
         super(props)
 
         this.state = {
+            name: '',
+            description: '',
+            UnitSubcomponents: [],
+            subComponentForms: [],
+            subComponentItems: [],
+            totalAdded: 0
         }
 
         this.handleChange = this.handleChange.bind(this)
+    }
+
+    removeSubComClicked(itemIdentifier) {
+        console.log("removing ", itemIdentifier)
+    }
+
+    addSubComClicked() {
+        console.log("CLICKED???")
+
+        this.setState(state => {
+            var index = state.subComponentForms.length
+
+            const totalAdded = state.totalAdded + 1
+
+            var newSubItem = {
+                name: "sub name",
+                description: "Flat 1",
+                workHours: 0,
+                numberOfCrew: 0,
+                item: totalAdded
+            }
+
+            const subComponentItems = [...state.subComponentItems, newSubItem]
+
+            const subComponentForms = [...state.subComponentForms, 
+                <Row>
+                <Col xs={11}>
+                <Form.Group controlId="formGroupFirstName">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="text" placeholder="Name" 
+                    name="name" value={subComponentItems[index].name} 
+                    onChange={this.handleChangeSubCom.bind(this, index)}/>
+                </Form.Group>                
+                </Col>
+                <Col xs={1}>
+                    <Button onClick={this.removeSubComClicked.bind(this, totalAdded)}>X</Button>
+                </Col>
+                </Row>
+            
+            ];
+       
+            return {
+                subComponentForms,
+                subComponentItems,
+                totalAdded
+            };
+        });
     }
 
     cancelClicked() {
@@ -23,6 +76,20 @@ class AddUnitComponent extends Component {
     addClicked() {
         console.log("adding new unit from add unit compoenent ")
         this.props.history.goBack()
+    }
+
+    handleChangeSubCom(event, index) {
+        console.log("event occuring ", event.target)
+        this.setState(state => {
+            
+            const subComponentItems = state.subComponentItems
+
+            subComponentItems[index].name = event.target.value
+        
+            return {
+                subComponentItems
+            };
+        });
     }
 
     handleChange(event) {
@@ -37,7 +104,7 @@ class AddUnitComponent extends Component {
 
                 <h2 className="border-bottom-custom">Add Unit</h2>
 
-                <Form>
+                <Form className="border-bottom-custom">
                             
                     {/* Name First and Last */}
                     <Row>
@@ -57,44 +124,42 @@ class AddUnitComponent extends Component {
                         </Form.Group>
                         </Col>
                     </Row>
+                    
+                    {/* <div id="dynamicInput">
+                       {this.state.inputs.map(input => <Form.Group key={input} />)}
+                   </div> */}
 
-                    {/* Email */}
-                    <Form.Group controlId="formGroupEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Email" 
-                        name="username" value={this.state.username} onChange={this.handleChange}/>
-                    </Form.Group>
+                    <h4 className="border-bottom-custom">Load in</h4>
 
-                    {/* Password  */}
-                    <Row>
+                    <div>
+                       {this.state.subComponentForms.map(
+                           input => 
+                           <>{input}</>)}
+                    </div>
+
+                    <Row className="mb-2">
+                        <Col xs={2}/>
                         <Col>
-                        <Form.Group controlId="formGroupPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" 
-                            name="password" value={this.state.password} onChange={this.handleChange}/>
-                        </Form.Group>
+                            <Button block onClick={this.addSubComClicked.bind(this)}>Add Subcomponent</Button>
                         </Col>
-
-                        <Col>
-                        <Form.Group controlId="formGroupPasswordConfirm">
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control type="password" placeholder="Confirm Password" 
-                            name="passwordConfirm" value={this.state.passwordConfirm} onChange={this.handleChange}/>
-                        </Form.Group>
-                        </Col>
+                        <Col xs={2}/>
                     </Row>
+                    
 
-                    <Row>
-                        <Col>
-                            <Button variant="secondary" block onClick={this.cancelClicked.bind(this)}>Cancel</Button>
-                        </Col>
-                        <Col xs={4}/>
-                        <Col>
-                            <Button block onClick={this.addClicked.bind(this)}>Add Unit</Button>
-                        </Col>
-                    </Row>
 
                 </Form>
+                
+                
+
+                <Row className="mt-3">
+                    <Col>
+                        <Button variant="secondary" block onClick={this.cancelClicked.bind(this)}>Cancel</Button>
+                    </Col>
+                    <Col xs={4}/>
+                    <Col>
+                        <Button block onClick={this.addClicked.bind(this)}>Add Unit</Button>
+                    </Col>
+                </Row>
 
             </Container>
         )

@@ -8,6 +8,8 @@ import {
 import SummaryComponent from './SummaryComponent';
 import UnitsComponent from './UnitsComponent';
 import AddUnitComponent from "./AddUnitComponent";
+import UnitComponent from "./UnitComponent";
+import StaffComponent from "./StaffComponent";
 import AuthenticatedRoute from './AuthenticatedRoute';
 import Nav from 'react-bootstrap/Nav'
 
@@ -49,36 +51,26 @@ class ProjectDetailsComponent extends Component {
 
                 {/* Navigation tabs */}
                 <Nav justify variant="tabs" defaultActiveKey="summary" activeKey={this.state.key}>
-                {/* // onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-                // onSelect={this.handleSelect}>  */}
                 <Nav.Item>
-                    {/* <Nav.Link eventKey="summary" href={url}>
-                        Summary
-                    </Nav.Link> */}
                     <Nav.Link eventKey="summary" onSelect={this.handleSelectSummary}>Summary</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="disabled" disabled>
-                    Staff
-                    </Nav.Link>
+                    <Nav.Link eventKey="staff" onSelect={this.handleSelect}>Staff</Nav.Link>
                 </Nav.Item>
                 </Nav.Item>
                 <Nav.Item >
-                    {/* <Nav.Link eventKey="units" href={`${url}/units`}>Units</Nav.Link> */}
                     <Nav.Link eventKey="units" onSelect={this.handleSelect}>Units</Nav.Link>
                 </Nav.Item>
                 </Nav>
 
                 <Switch>
                     <AuthenticatedRoute exact path={path} component={SummaryComponent}/>
-                    {/* <h3>Please select a topic.</h3>
-                    </Route> */}
-                    {/* <AuthenticatedRoute path={`${path}/summary`}  /> */}
+                    <AuthenticatedRoute exact path={`${path}/staff`} component={StaffComponent} />
                     <AuthenticatedRoute exact path={`${path}/units`} component={UnitsComponent} />
+                    <AuthenticatedRoute exact path={`${path}/unit`} component={UnitComponent} />
                     <AuthenticatedRoute exact path={`${path}/units/new`} component={AddUnitComponent} />
                 </Switch>
-
                 
                 {/* <Route path="/admin/groups" component={AdminGroups} /> */}
 

@@ -31,6 +31,7 @@ class UnitsComponent extends Component {
         var arry = []
 
         var unit1 = {
+            id: 1,
             name: "Flat 1",
             description: "fake desciription flat1",
             build: 2,
@@ -41,6 +42,7 @@ class UnitsComponent extends Component {
             completion: Math.floor((2 + 1) / (2 + 2) * 100)
         }
         var unit2 = {
+            id: 2,
             name: "Flat 2",
             description: "fake desciription flat2",
             build: 22,
@@ -79,6 +81,13 @@ class UnitsComponent extends Component {
         })
     }
 
+    unitClicked() {
+        this.props.history.push({
+            pathname: 'unit',
+            state: { unitId: 1},
+        })
+    }
+
     render() {
         return (
             <Container className="mt-3">
@@ -102,8 +111,8 @@ class UnitsComponent extends Component {
                     <thead>
                         <tr>
                         <th>Element</th>
-                        <th>Build</th>
-                        <th>Load In</th>
+                        <th>Build (Hours)</th>
+                        <th>Load In (Hours)</th>
                         <th>Materials</th>
                         <th>Completion</th>
                         </tr>
@@ -111,10 +120,10 @@ class UnitsComponent extends Component {
                     <tbody>
                     {this.state.units.map(
                             unit =>
-                            <tr>
+                            <tr onClick={this.unitClicked.bind(this)}>
                             <th>{unit.name}</th>
-                            <td>{unit.buildComplete} / {unit.build} hours</td>
-                            <td>{unit.loadInComplete} / {unit.loadIn} hours</td>
+                            <td>{unit.build}</td>
+                            <td>{unit.loadIn}</td>
                             <td>${unit.materials}</td>
                             <td><ProgressBar striped now={unit.completion} label={`${unit.completion}%`} /></td>
                             </tr>
@@ -136,126 +145,6 @@ class UnitsComponent extends Component {
                     <td>{this.state.totals.materials}</td>
                     <td><ProgressBar striped now={this.state.totals.completion} label={`${this.state.totals.completion}%`} /></td>
                     </tr>
-                    </tbody>
-                </Table>
-                
-                <h2>alt look</h2>
-                <Table className="mt-3" striped bordered hover>
-                    <thead>
-                        <tr>
-                        <th>Element</th>
-                        <th>Build (Hours)</th>
-                        <th>Load In (Hours)</th>
-                        <th>Materials</th>
-                        <th>Completion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.units.map(
-                            unit =>
-                            <tr>
-                            <th>{unit.name}</th>
-                            <td>{unit.build}</td>
-                            <td>{unit.loadIn}</td>
-                            <td>${unit.materials}</td>
-                            <td><ProgressBar striped now={unit.completion} label={`${unit.completion}%`} /></td>
-                            </tr>
-                        )
-                    } 
-                    </tbody>
-                </Table>
-
-                <h2>alt look</h2>
-                <Table className="mt-3" striped bordered hover>
-                    <thead>
-                        <tr>
-                        <th>Element</th>
-                        <th>Build Complete</th>
-                        <th>Build Total</th>
-                        <th>Load In Complete</th>
-                        <th>Load In Total</th>
-                        <th>Materials</th>
-                        <th>Completion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.units.map(
-                            unit =>
-                            <tr>
-                            <th>{unit.name}</th>
-                            <td>{unit.buildComplete}</td>
-                            <td>{unit.build}</td>
-                            <td>{unit.loadInComplete}</td>
-                            <td>{unit.loadIn}</td>
-                            <td>${unit.materials}</td>
-                            <td><ProgressBar striped now={unit.completion} label={`${unit.completion}%`} /></td>
-                            </tr>
-                        )
-                    } 
-                    </tbody>
-                </Table>
-
-                <h2>alt look</h2>
-                <Table className="mt-3" striped bordered hover>
-                    <thead>
-                        <tr>
-                        <th>Element</th>
-                        <th>Build</th>
-                        <th>Load In</th>
-                        <th>Materials</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.units.map(
-                            unit =>
-                            <>
-                            <tr>
-                            <th>{unit.name}</th>
-                            <td>{unit.build}</td>
-                            <td>{unit.loadIn}</td>
-                            <td>${unit.materials}</td>
-                            </tr>
-                            <tr>
-                            <th colSpan="4"><ProgressBar striped now={unit.completion} label={`${unit.completion}% complete`} /></th>
-                            </tr>
-                            </>
-                        )
-                    } 
-                    </tbody>
-                </Table>
-
-                <h2>alt look</h2>
-                <Table className="mt-3" striped bordered hover>
-                    <thead>
-                        <tr>
-                        <th>Element</th>
-                        <th>Build Complete</th>
-                        <th>Build Total</th>
-                        <th>Load In Complete</th>
-                        <th>Load In Total</th>
-                        <th>Materials</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.units.map(
-                            unit =>
-                            <>
-                            <tr>
-                            <th>{unit.name}</th>
-                            <td>{unit.buildComplete}</td>
-                            <td>{unit.build}</td>
-                            <td>{unit.loadInComplete}</td>
-                            <td>{unit.loadIn}</td>
-                            <td>${unit.materials}</td>
-                            </tr>
-                            <tr>
-                            <th></th>
-                            <th colSpan="5"><ProgressBar striped now={unit.completion} label={`${unit.completion}% complete`} /></th>
-                            </tr>
-                            </>
-                        )
-                    } 
-
                     </tbody>
                 </Table>
 
