@@ -13,10 +13,7 @@ class AddUnitComponent extends Component {
         this.state = {
             name: '',
             description: '',
-            UnitSubcomponents: [],
-            subComponentForms: [],
             subComponentItems: [],
-            totalAdded: 0
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -30,41 +27,18 @@ class AddUnitComponent extends Component {
         console.log("CLICKED???")
 
         this.setState(state => {
-            var index = state.subComponentForms.length
-
-            const totalAdded = state.totalAdded + 1
 
             var newSubItem = {
                 name: "sub name",
                 description: "Flat 1",
                 workHours: 0,
-                numberOfCrew: 0,
-                item: totalAdded
+                numberOfCrew: 0
             }
 
             const subComponentItems = [...state.subComponentItems, newSubItem]
-
-            const subComponentForms = [...state.subComponentForms, 
-                <Row>
-                <Col xs={11}>
-                <Form.Group controlId="formGroupFirstName">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder="Name" 
-                    name="name" value={subComponentItems[index].name} 
-                    onChange={this.handleChangeSubCom.bind(this, index)}/>
-                </Form.Group>                
-                </Col>
-                <Col xs={1}>
-                    <Button onClick={this.removeSubComClicked.bind(this, totalAdded)}>X</Button>
-                </Col>
-                </Row>
-            
-            ];
        
             return {
-                subComponentForms,
-                subComponentItems,
-                totalAdded
+                subComponentItems
             };
         });
     }
@@ -78,25 +52,75 @@ class AddUnitComponent extends Component {
         this.props.history.goBack()
     }
 
-    handleChangeSubCom(event, index) {
-        console.log("event occuring ", event.target)
-        this.setState(state => {
-            
-            const subComponentItems = state.subComponentItems
-
-            subComponentItems[index].name = event.target.value
-        
-            return {
-                subComponentItems
-            };
-        });
-    }
-
     handleChange(event) {
         this.setState(
             {[event.target.name]: event.target.value}
         )
     }
+
+    handleSubNameChange(index, item, event) {
+        // console.log("handle input change event ", event)
+        console.log("handle input change target name ", event.target.name)
+        // console.log("handle input change item ", item)
+        // console.log("handle input change index ", index)
+
+        const subComponentItems = [...this.state.subComponentItems];
+
+        // console.log("handle input change pre ", subComponentItems)
+
+        item.name = event.target.value 
+        subComponentItems.splice(index, 1, item); // replaces 1 element at specificed index
+
+        // console.log("handle input change post ", subComponentItems)
+        this.setState({
+            subComponentItems
+        });
+    };
+
+    handleSubDescriptionChange(index, item, event) {
+        console.log("handle input change event ", event)
+        console.log("handle input change item ", item)
+        console.log("handle input change index ", index)
+
+        const subComponentItems = [...this.state.subComponentItems];
+
+        console.log("handle input change pre ", subComponentItems)
+
+        // item.name = event.target.value
+        event.target.name = event.target.value
+        subComponentItems.splice(index, 1, item); // replaces 1 element at specificed index
+
+        console.log("handle input change post ", subComponentItems)
+        this.setState({
+            subComponentItems
+        });
+    };
+
+    // handleInputChange = (event) => {
+    //     console.log("handle input change event ", event)
+    //     console.log("handle input change item ", event.item)
+    //     console.log("handle input change item target ", event.target.item)
+    //     console.log("handle input change index ", event.index)
+    //     const subComponentItems = [...this.state.subComponentItems];
+    //     console.log("handle input change pre ", subComponentItems)
+    //     subComponentItems.splice(event.index, 1, event.item); // replaces 1 element at specificed index
+    //     console.log("handle input change post ", subComponentItems)
+    //     this.setState({
+    //         subComponentItems
+    //     });
+    // };
+
+    removeSubComponent = (event) => {
+        // console.log("remove event ", event)
+        // console.log("remove index ", event.target.index)
+        // const subComponentItems = [...this.state.subComponentItems];
+        // console.log("handle input change pre ", subComponentItems)
+        // subComponentItems.splice(event.target.index, 1); // replaces 1 element at specificed index
+        // console.log("handle input change post ", subComponentItems)
+        // this.setState({
+        //     subComponentItems
+        // });
+    };
 
     render() {
         return (
@@ -132,9 +156,37 @@ class AddUnitComponent extends Component {
                     <h4 className="border-bottom-custom">Load in</h4>
 
                     <div>
-                       {this.state.subComponentForms.map(
-                           input => 
-                           <>{input}</>)}
+                       {this.state.subComponentItems.map(
+                           (item, index) => 
+                            <>
+                            <Row>
+                                {console.log("in render item ", item)}
+                                {console.log("in render index ", index)}
+                                <Col xs={11}>
+                                <Form.Group controlId="subComponentName">
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Name" 
+                                    name="item.name" value={item.name}
+                                    onChange={this.handleSubNameChange.bind(this, index, item)}/>
+                                </Form.Group>                
+                                </Col>
+                                <Col xs={1}>
+                                    <Button onClick={this.removeSubComClicked.bind(this, index)}>X</Button>
+                                </Col>
+                            </Row>
+                            {/* <Row>
+                                <Col xs={11}>
+                                <Form.Group controlId="subComponentName">
+                                    <Form.Label>Description</Form.Label>
+                                    <Form.Control type="text" placeholder="Description" 
+                                    name="description" index={index} 
+                                    value={item.description} 
+                                    onChange={this.handleInputChange}/>
+                                </Form.Group>                
+                                </Col>
+                            </Row> */}
+                            </>
+                            )}
                     </div>
 
                     <Row className="mb-2">
