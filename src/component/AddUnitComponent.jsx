@@ -19,18 +19,14 @@ class AddUnitComponent extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
-    removeSubComClicked(itemIdentifier) {
-        console.log("removing ", itemIdentifier)
-    }
-
     addSubComClicked() {
         console.log("CLICKED???")
 
         this.setState(state => {
 
             var newSubItem = {
-                name: "sub name",
-                description: "Flat 1",
+                name: "",
+                description: "",
                 workHours: 0,
                 numberOfCrew: 0
             }
@@ -59,67 +55,62 @@ class AddUnitComponent extends Component {
     }
 
     handleSubNameChange(index, item, event) {
-        // console.log("handle input change event ", event)
-        console.log("handle input change target name ", event.target.name)
-        // console.log("handle input change item ", item)
-        // console.log("handle input change index ", index)
 
         const subComponentItems = [...this.state.subComponentItems];
-
-        // console.log("handle input change pre ", subComponentItems)
 
         item.name = event.target.value 
         subComponentItems.splice(index, 1, item); // replaces 1 element at specificed index
 
-        // console.log("handle input change post ", subComponentItems)
         this.setState({
             subComponentItems
         });
     };
 
     handleSubDescriptionChange(index, item, event) {
-        console.log("handle input change event ", event)
-        console.log("handle input change item ", item)
-        console.log("handle input change index ", index)
 
         const subComponentItems = [...this.state.subComponentItems];
 
-        console.log("handle input change pre ", subComponentItems)
-
-        // item.name = event.target.value
-        event.target.name = event.target.value
+        item.description = event.target.value 
         subComponentItems.splice(index, 1, item); // replaces 1 element at specificed index
 
-        console.log("handle input change post ", subComponentItems)
         this.setState({
             subComponentItems
         });
     };
 
-    // handleInputChange = (event) => {
-    //     console.log("handle input change event ", event)
-    //     console.log("handle input change item ", event.item)
-    //     console.log("handle input change item target ", event.target.item)
-    //     console.log("handle input change index ", event.index)
-    //     const subComponentItems = [...this.state.subComponentItems];
-    //     console.log("handle input change pre ", subComponentItems)
-    //     subComponentItems.splice(event.index, 1, event.item); // replaces 1 element at specificed index
-    //     console.log("handle input change post ", subComponentItems)
-    //     this.setState({
-    //         subComponentItems
-    //     });
-    // };
+    handleSubWorkHoursChange(index, item, event) {
 
-    removeSubComponent = (event) => {
-        // console.log("remove event ", event)
-        // console.log("remove index ", event.target.index)
-        // const subComponentItems = [...this.state.subComponentItems];
-        // console.log("handle input change pre ", subComponentItems)
-        // subComponentItems.splice(event.target.index, 1); // replaces 1 element at specificed index
-        // console.log("handle input change post ", subComponentItems)
-        // this.setState({
-        //     subComponentItems
-        // });
+        const subComponentItems = [...this.state.subComponentItems];
+
+        item.workHours = event.target.value 
+        subComponentItems.splice(index, 1, item); // replaces 1 element at specificed index
+
+        this.setState({
+            subComponentItems
+        });
+    };
+
+    handleSubNumberofCrewChange(index, item, event) {
+
+        const subComponentItems = [...this.state.subComponentItems];
+
+        item.numberofCrew = event.target.value 
+        subComponentItems.splice(index, 1, item); // replaces 1 element at specificed index
+
+        this.setState({
+            subComponentItems
+        });
+    };
+
+    removeSubComponentClicked = (index, event) => {
+        
+        const subComponentItems = [...this.state.subComponentItems];
+        console.log("handle input change pre ", subComponentItems)
+        subComponentItems.splice(index, 1); // replaces 1 element at specificed index
+        console.log("handle input change post ", subComponentItems)
+        this.setState({
+            subComponentItems
+        });
     };
 
     render() {
@@ -133,9 +124,9 @@ class AddUnitComponent extends Component {
                     {/* Name First and Last */}
                     <Row>
                         <Col>
-                        <Form.Group controlId="formGroupFirstName">
-                            <Form.Label>First Name</Form.Label>
-                            <Form.Control type="text" placeholder="First Name" 
+                        <Form.Group controlId="Unit Name">
+                            <Form.Label>Unit Name</Form.Label>
+                            <Form.Control type="text" placeholder="Unit Name" 
                             name="firstName" value={this.state.firstName} onChange={this.handleChange}/>
                         </Form.Group>
                         </Col>
@@ -166,12 +157,12 @@ class AddUnitComponent extends Component {
                                 <Form.Group controlId="subComponentName">
                                     <Form.Label>Name</Form.Label>
                                     <Form.Control type="text" placeholder="Name" 
-                                    name="item.name" value={item.name}
+                                    name="this.state.subComponentItems" value={item.name}
                                     onChange={this.handleSubNameChange.bind(this, index, item)}/>
                                 </Form.Group>                
                                 </Col>
                                 <Col xs={1}>
-                                    <Button onClick={this.removeSubComClicked.bind(this, index)}>X</Button>
+                                    <Button onClick={this.removeSubComponentClicked.bind(this, index)}>X</Button>
                                 </Col>
                             </Row>
                             {/* <Row>
@@ -192,7 +183,7 @@ class AddUnitComponent extends Component {
                     <Row className="mb-2">
                         <Col xs={2}/>
                         <Col>
-                            <Button block onClick={this.addSubComClicked.bind(this)}>Add Subcomponent</Button>
+                            <Button block onClick={this.addSubComClicked.bind(this)}>Add Load in Subcomponent</Button>
                         </Col>
                         <Col xs={2}/>
                     </Row>
