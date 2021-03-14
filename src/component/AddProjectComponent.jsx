@@ -58,15 +58,17 @@ class AddProjectComponent extends Component {
                     this.setState({ showErrorMessage: false })
                     this.props.history.push('/projects')
                 } else {
-                    console.log("project failed :(")
+                    console.log("project creation failed")
                     this.setState({ showErrorMessage: true })
                     this.setState({errorMessage: "Project creation failed"})
                 }
                 
             }).catch(() => {
+                console.log("project creation failed")
                 this.setState({ showErrorMessage: true })
                 this.setState({errorMessage: "Project creation failed"})
             })
+     
     }
 
     cancelClicked() {
@@ -153,7 +155,7 @@ class AddProjectComponent extends Component {
                                 </Col>
                                 <Col xs={4}/>
                                 <Col>
-                                    <Button type="submit" block onClick={this.createClicked}>Create</Button>
+                                    <Button block onClick={this.createClicked}>Create</Button>
                                 </Col>
                             </Row>
 

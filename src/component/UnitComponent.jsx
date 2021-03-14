@@ -23,18 +23,18 @@ class UnitComponent extends Component {
         )
     }
 
-    // componentDidMount() {
-    //     this.refreshProjects();
-    // }
+    componentDidMount() {
+        this.refreshUnit();
+    }
 
-    // refreshUnit() {
-    //     ProjectService.retrieveProject(this.props.match.params.id)
-    //         .then(
-    //             response => {
-    //                 this.setState({ project: response.data })
-    //             }
-    //         )
-    // }
+    refreshUnit() {
+        ProjectService.retrieveUnit(this.props.location.state.unitId, this.props.match.params.id)
+            .then(
+                response => {
+                    this.setState({ unit: response.data })
+                }
+            )
+    }
 
     deleteUnitClicked() {
         console.log("delete clicked")

@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 class AddUserComponent extends Component {
 
@@ -130,7 +131,7 @@ class AddUserComponent extends Component {
 
                         </Form>
 
-                        <button type="submit" block onClick={this.createClicked}>Submit</button>
+                        <Button type="submit" block onClick={this.createClicked}>Submit</Button>
 
                         { this.state.showErrorMessage && // Account creation error
                         <div class="alert alert-warning" role="alert">{this.state.errorMessage}</div>
