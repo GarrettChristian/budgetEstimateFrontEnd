@@ -126,8 +126,8 @@ class AddUnitComponent extends Component {
             var newSubItem = {
                 name: "",
                 description: "",
-                workHours: 0,
-                numberOfCrew: 0
+                workHours: "",
+                numberOfCrew: ""
             }
 
             const loadInItems = [...state.loadInItems, newSubItem]
@@ -206,8 +206,8 @@ class AddUnitComponent extends Component {
                 name: "",
                 description: "",
                 vendor: "",
-                cost: 0,
-                amountRequired: 0
+                cost: "",
+                amountRequired: ""
             }
 
             const materials = [...state.materials, newSubItem]
@@ -230,17 +230,17 @@ class AddUnitComponent extends Component {
         });
     };
 
-    handleMaterialDescriptionChange(index, item, event) {
+    // handleMaterialDescriptionChange(index, item, event) {
 
-        const materials = [...this.state.materials];
+    //     const materials = [...this.state.materials];
 
-        item.description = event.target.value 
-        materials.splice(index, 1, item); // replaces 1 element at specificed index
+    //     item.description = event.target.value 
+    //     materials.splice(index, 1, item); // replaces 1 element at specificed index
 
-        this.setState({
-            materials
-        });
-    };
+    //     this.setState({
+    //         materials
+    //     });
+    // };
 
     handleMaterialVendorChange(index, item, event) {
 
@@ -334,7 +334,7 @@ class AddUnitComponent extends Component {
                                 </Col>
                                 <Col xs={3}>
                                     <Form.Group controlId="buildNumberOfCrew">
-                                        <Form.Control type="text" placeholder="Number of Crew" 
+                                        <Form.Control type="text" placeholder="# of Crew" 
                                         name="numberOfCrew" value={item.numberOfCrew} size="sm"
                                         onChange={this.handleBuildNumberofCrewChange.bind(this, index, item)}/>
                                     </Form.Group>
@@ -366,26 +366,44 @@ class AddUnitComponent extends Component {
                        {this.state.loadInItems.map(
                            (item, index) => 
                             <>
-                            {/* <Row>
-                                {console.log("in render item ", item)}
-                                {console.log("in render index ", index)}
-                                <Col xs={11}>
-                                <Form.Group controlId="subComponentName">
-                                    <Form.Label>Name</Form.Label>
+                            <div className="border-bottom-custom">
+                            <Row className="mt-2">
+                                <Col xs={5}>
+                                <Form.Group controlId="loadInItemName">
                                     <Form.Control type="text" placeholder="Name" 
-                                    name="this.state.subComponentItems" value={item.name}
-                                    onChange={this.handleSubNameChange.bind(this, index, item)}/>
-                                </Form.Group>                
+                                    name="name" value={item.name} size="sm"
+                                    onChange={this.handleLoadInNameChange.bind(this, index, item)}/>
+                                </Form.Group>          
+                                </Col>
+                                <Col xs={3}>
+                                    <Form.Group controlId="loadInWorkHours">
+                                        <Form.Control type="text" placeholder="Work Hours" 
+                                        name="workHours" value={item.workHours} size="sm"
+                                        onChange={this.handleLoadInWorkHoursChange.bind(this, index, item)}/>
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={3}>
+                                    <Form.Group controlId="loadInNumberOfCrew">
+                                        <Form.Control type="text" placeholder="# of Crew" 
+                                        name="numberOfCrew" value={item.numberOfCrew} size="sm"
+                                        onChange={this.handleLoadInNumberofCrewChange.bind(this, index, item)}/>
+                                    </Form.Group>
                                 </Col>
                                 <Col xs={1}>
-                                    <Button onClick={this.removeSubComponentClicked.bind(this, index)}>X</Button>
+                                    <Button variant="danger" onClick={this.removeLoadInItemClicked.bind(this, index)}>x</Button>
                                 </Col>
-                            </Row> */}
+                            </Row>
+                            <Form.Group controlId="loadInDescription">
+                                <Form.Control type="text" placeholder="Description" 
+                                name="description" value={item.description} size="sm"
+                                onChange={this.handleLoadInDescriptionChange.bind(this, index, item)}/>
+                            </Form.Group>
+                            </div>
                             </>
                             )}
                     </div>
 
-                    <Row className="mb-2">
+                    <Row className=" mt-2 mb-2">
                         <Col xs={2}/>
                         <Col>
                             <Button block onClick={this.addLoadInItemClicked.bind(this)}>Add Load in Subcomponent</Button>
@@ -399,26 +417,46 @@ class AddUnitComponent extends Component {
                        {this.state.materials.map(
                            (item, index) => 
                             <>
-                            {/* <Row>
-                                {console.log("in render item ", item)}
-                                {console.log("in render index ", index)}
-                                <Col xs={11}>
-                                <Form.Group controlId="subComponentName">
-                                    <Form.Label>Name</Form.Label>
+                            <div className="border-bottom-custom">
+                            <Row className="mt-2">
+                                <Col xs={4}>
+                                <Form.Group controlId="materialName">
                                     <Form.Control type="text" placeholder="Name" 
-                                    name="this.state.subComponentItems" value={item.name}
-                                    onChange={this.handleSubNameChange.bind(this, index, item)}/>
-                                </Form.Group>                
+                                    name="name" value={item.name} size="sm"
+                                    onChange={this.handleMaterialNameChange.bind(this, index, item)}/>
+                                </Form.Group>          
+                                </Col>
+                                <Col xs={3}>
+                                    <Form.Group controlId="buildNumberOfCrew">
+                                        <Form.Control type="text" placeholder="Vendor" 
+                                        name="numberOfCrew" value={item.numberOfCrew} size="sm"
+                                        onChange={this.handleMaterialVendorChange.bind(this, index, item)}/>
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={2}>
+                                    <Form.Group controlId="materialCost">
+                                        <Form.Control type="text" placeholder="Cost" 
+                                        name="cost" value={item.cost} size="sm"
+                                        onChange={this.handleMaterialCostChange.bind(this, index, item)}/>
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={2}>
+                                    <Form.Group controlId="materialAmountRequired">
+                                        <Form.Control type="text" placeholder="Amount" 
+                                        name="amountRequired" value={item.numberOfCrew} size="sm"
+                                        onChange={this.handleMaterialAmountChange.bind(this, index, item)}/>
+                                    </Form.Group>
                                 </Col>
                                 <Col xs={1}>
-                                    <Button onClick={this.removeSubComponentClicked.bind(this, index)}>X</Button>
+                                    <Button variant="danger" onClick={this.removeMaterialClicked.bind(this, index)}>x</Button>
                                 </Col>
-                            </Row> */}
+                            </Row>
+                            </div>
                             </>
                             )}
                     </div>
 
-                    <Row className="mb-2">
+                    <Row className="mt-2 mb-2">
                         <Col xs={2}/>
                         <Col>
                             <Button block onClick={this.addMaterialClicked.bind(this)}>Add Material</Button>

@@ -81,10 +81,10 @@ class UnitsComponent extends Component {
         })
     }
 
-    unitClicked() {
+    unitClicked(unit) {
         this.props.history.push({
             pathname: 'unit',
-            state: { unitId: 1},
+            state: { unitId: unit.id},
         })
     }
 
@@ -120,7 +120,7 @@ class UnitsComponent extends Component {
                     <tbody>
                     {this.state.units.map(
                             unit =>
-                            <tr onClick={this.unitClicked.bind(this)}>
+                            <tr onClick={this.unitClicked.bind(this, unit)}>
                             <th>{unit.name}</th>
                             <td>{unit.build}</td>
                             <td>{unit.loadIn}</td>
