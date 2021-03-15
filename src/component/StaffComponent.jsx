@@ -4,6 +4,11 @@ import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Table from 'react-bootstrap/Table'
+import Modal from 'react-bootstrap/Modal'
+import ModalHeader from 'react-bootstrap/ModalHeader'
+import ModalFooter from 'react-bootstrap/ModalFooter'
+import ModalTitle from 'react-bootstrap/ModalTitle'
+import ModalBody from 'react-bootstrap/ModalBody'
 
 class StaffComponent extends Component {
 
@@ -11,11 +16,13 @@ class StaffComponent extends Component {
         super(props)
 
         this.state = {
-            staff: []
+            staff: [],
+            showModal: false
         }
 
         this.handleChange = this.handleChange.bind(this)
         this.refreshStaff = this.refreshStaff.bind(this)
+        this.toggle = this.toggle.bind(this);
     }
 
     handleChange(event) {
@@ -63,6 +70,10 @@ class StaffComponent extends Component {
         this.refreshStaff();
     }
 
+    toggle() {
+        this.setState({showModal: !this.state.showModal});
+    }
+
     render() {
         return (
             <Container className="mt-3">
@@ -77,6 +88,25 @@ class StaffComponent extends Component {
                     </Col>
                     <Col xs={2}/>
                 </Row>
+
+                <Button variant="primary" onClick={this.toggle}>
+                    Launch demo modal
+                </Button>
+
+                <Modal show={this.state.showModal}>
+                    <ModalHeader closeButton onClick={this.toggle}>
+                    <ModalTitle>Modal heading</ModalTitle>
+                    </ModalHeader>
+                    <ModalBody>Woohoo, you're reading this text in a modal!</ModalBody>
+                    <ModalFooter>
+                    <Button variant="secondary" onClick={this.toggle}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={this.toggle}>
+                        Save Changes
+                    </Button>
+                    </ModalFooter>
+                </Modal>
 
                 <Table className="mt-3" striped bordered hover>
                 <thead>

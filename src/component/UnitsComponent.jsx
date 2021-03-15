@@ -6,6 +6,7 @@ import {withRouter} from "react-router-dom"
 import Table from 'react-bootstrap/Table'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import ProjectService from '../service/ProjectService.jsx'
 
 class UnitsComponent extends Component {
 
@@ -14,7 +15,8 @@ class UnitsComponent extends Component {
 
         this.state = {
             units: [],
-            totals: ''
+            totals: '',
+            stuff: ''
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -25,46 +27,65 @@ class UnitsComponent extends Component {
         this.refreshUnits();
     }
 
+
     refreshUnits() {
-        console.log("units refreshing!")
 
-        var arry = []
+        console.log("here??? " + this.props.match.params.id)
 
-        var unit1 = {
-            id: 1,
-            name: "Flat 1",
-            description: "fake desciription flat1",
-            build: 2,
-            buildComplete: 2,
-            loadIn: 2,
-            loadInComplete: 1,
-            materials: 7,
-            completion: Math.floor((2 + 1) / (2 + 2) * 100)
-        }
-        var unit2 = {
-            id: 2,
-            name: "Flat 2",
-            description: "fake desciription flat2",
-            build: 22,
-            buildComplete: 12,
-            loadIn: 22,
-            loadInComplete: 0,
-            materials: 72,
-            completion: Math.floor((12 + 0) / (22 + 22) * 100)
-        }
+        ProjectService.retrieveUnitOverview(this.props.match.params.id)
+        .then(
+            response => {
+                console.log(response)
+                console.log(response.data)
+                this.setState({totals: response.data})
+                this.setState({units: response.data.units})
+            }
+        )
 
-        arry.push(unit1)
-        arry.push(unit2)
+        // console.log("unit refreshing!")
+        // console.log(unitOverview)
+        // console.log(this.state.staff)
 
-        this.setState({ units: arry })
+        // this.setState({units : unitOverview.units})
+        // this.setState({totals : unitOverview})
 
-        var total = {
-            build: 24.1,
-            loadIn: 24.1,
-            materials: 79.1
-        }
+        // var arry = []
 
-        this.setState({ totals: total })
+        // var unit1 = {
+        //     id: 1,
+        //     name: "Flat 1",
+        //     description: "fake desciription flat1",
+        //     build: 2,
+        //     buildComplete: 2,
+        //     loadIn: 2,
+        //     loadInComplete: 1,
+        //     materials: 7,
+        //     completion: Math.floor((2 + 1) / (2 + 2) * 100)
+        // }
+        // var unit2 = {
+        //     id: 2,
+        //     name: "Flat 2",
+        //     description: "fake desciription flat2",
+        //     build: 22,
+        //     buildComplete: 12,
+        //     loadIn: 22,
+        //     loadInComplete: 0,
+        //     materials: 72,
+        //     completion: Math.floor((12 + 0) / (22 + 22) * 100)
+        // }
+
+        // arry.push(unit1)
+        // arry.push(unit2)
+
+        // this.setState({ units: arry })
+
+        // var total = {
+        //     build: 24.1,
+        //     loadIn: 24.1,
+        //     materials: 79.1
+        // }
+
+        // this.setState({ totals: total })
     }
 
     handleChange(event) {
@@ -140,9 +161,9 @@ class UnitsComponent extends Component {
 
                     <tr>
                     <th>Totals</th>
-                    <td>{this.state.totals.build}</td>
-                    <td>{this.state.totals.loadIn}</td>
-                    <td>{this.state.totals.materials}</td>
+                    <td>{this.state.totals.buildTotal}</td>
+                    <td>{this.state.totals.loadInTotal}</td>
+                    <td>${this.state.totals.materialsTotal}</td>
                     <td><ProgressBar striped now={this.state.totals.completion} label={`${this.state.totals.completion}%`} /></td>
                     </tr>
                     </tbody>

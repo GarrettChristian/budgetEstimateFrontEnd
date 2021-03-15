@@ -11,7 +11,7 @@ class ProjectService {
   retrieveAllProjects() {
       return axios.get(`${PROJECT_API_URL}/get/all/user`, {
           headers: {
-            'Authorization':  localStorage.getItem("JWT")
+            'Authorization': localStorage.getItem("JWT")
           }
         }
       );
@@ -38,17 +38,8 @@ class ProjectService {
       );
   }
 
-  createNewUnit(unit, projectId) {
-    return axios.post(`${PROJECT_API_URL}/unit/new`, unit, projectId, {
-        headers: {
-          'Authorization':  localStorage.getItem("JWT")
-        }
-      }
-    );
-  }
-
-  createNewUnit(unit, projectId) {
-    return axios.post(`${PROJECT_API_URL}/unit/new`, unit, projectId, {
+  createNewUnit(unit) {
+    return axios.post(`${PROJECT_API_URL}/unit/new`, unit, {
         headers: {
           'Authorization':  localStorage.getItem("JWT")
         }
@@ -57,6 +48,7 @@ class ProjectService {
   }
 
   retrieveUnitOverview(projectId) {
+    console.log("artist " + projectId)
     let config = {
       headers: {'Authorization': localStorage.getItem("JWT")},
       params: {

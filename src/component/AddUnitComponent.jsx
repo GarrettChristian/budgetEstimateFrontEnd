@@ -3,7 +3,8 @@ import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Form from 'react-bootstrap/Form';
+import Form from 'react-bootstrap/Form'
+import ProjectService from '../service/ProjectService.jsx'
 
 class AddUnitComponent extends Component {
 
@@ -16,6 +17,8 @@ class AddUnitComponent extends Component {
             buildItems: [],
             loadInItems: [],
             materials: [],
+            errorMessage: '',
+            showErrorMessage: false,
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -27,7 +30,41 @@ class AddUnitComponent extends Component {
 
     addClicked() {
         console.log("adding new unit from add unit compoenent ")
-        this.props.history.goBack()
+
+        var unitSubcomponents = this.state.buildItems
+        unitSubcomponents = unitSubcomponents.concat(this.state.loadInItems)
+
+        console.log(unitSubcomponents)
+
+        var unit = {
+            name: this.state.unitName,
+            description: this.state.unitDescription,
+            subcomponents: unitSubcomponents,
+            materials: this.state.materials,
+            projectId: this.props.match.params.id
+        }
+
+        console.log(unit)
+        console.log(this.props.match.params.id)
+
+        ProjectService
+            .createNewUnit(unit)
+            .then((response) => {
+                if (response.data.success) {
+                    console.log("unit creation success")
+                    this.setState({ showErrorMessage: false })
+                    this.props.history.goBack()
+                } else {
+                    console.log("unit creation failed")
+                    this.setState({ showErrorMessage: true })
+                    this.setState({errorMessage: "Project creation failed"})
+                }
+                
+            }).catch(() => {
+                console.log("unit creation error")
+                this.setState({ showErrorMessage: true })
+                this.setState({errorMessage: "Project creation failed"})
+            })
     }
 
     handleChange(event) {
@@ -47,7 +84,8 @@ class AddUnitComponent extends Component {
                 name: "",
                 description: "",
                 workHours: "",
-                numberOfCrew: ""
+                numberOfCrew: "",
+                type: "BUILD"
             }
 
             const buildItems = [...state.buildItems, newSubItem]
@@ -127,7 +165,8 @@ class AddUnitComponent extends Component {
                 name: "",
                 description: "",
                 workHours: "",
-                numberOfCrew: ""
+                numberOfCrew: "",
+                type: "LOAD IN"
             }
 
             const loadInItems = [...state.loadInItems, newSubItem]

@@ -11,7 +11,10 @@ class UnitComponent extends Component {
         super(props)
 
         this.state = {
-            unit: ''
+            unit: '',
+            loadInList: [],
+            buildList: [],
+            materials: []
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -32,12 +35,15 @@ class UnitComponent extends Component {
             .then(
                 response => {
                     this.setState({ unit: response.data })
+                    this.setState({ loadInList:  response.data.subcomponents.filter(subcom => subcom.type === "LOAD IN")})
+                    this.setState({ buildList:  response.data.subcomponents.filter(subcom => subcom.type === "BUILD")})
+                    this.setState({ materials: response.data.materials })
                 }
             )
     }
 
     deleteUnitClicked() {
-        console.log("delete clicked")
+        console.log("delete  clicked")
         this.props.history.goBack()
     }
 
@@ -51,11 +57,12 @@ class UnitComponent extends Component {
     }
 
     render() {
+
         return (
             <Container className="mt-3">
 
                 
-                <h2 className="border-bottom-custom">Unit Page</h2>
+                <h2 className="border-bottom-custom">Unit: {this.state.unit.name}</h2>
 
                 <Row className="mt-3">
                     <Col xs={8}/>
@@ -67,6 +74,40 @@ class UnitComponent extends Component {
                     </Col>
                 </Row>
 
+                <h4 className="border-bottom-custom">Description</h4>
+                <p>{this.state.unit.description}</p>
+
+                <h4 className="border-bottom-custom">Build</h4>
+                {this.state.buildList.map(
+                        build =>
+                        <p>Build {build.name}</p>
+                    )
+                }
+
+                <h4 className="border-bottom-custom">Load in</h4>
+                {this.state.loadInList.map(
+                        loadIn =>
+                        <>
+                        <p>Load {loadIn.name}</p>
+                        <p>work hours {loadIn.workHours}</p>
+                        <p>number of crew {loadIn.numberOfCrew}</p>
+                        <p>Description {loadIn.description}</p>
+                        <p></p>
+                        </>
+                    )
+                }
+
+                <h4 className="border-bottom-custom">Materials</h4>
+                {this.state.materials.map(
+                        material =>
+                        <>
+                        <p>material {material.name}</p>
+                        <p>material cost {material.cost}</p>
+                        <p>material amount required {material.amountRequired}</p>
+                        <p>vendor {material.vendor}</p>
+                        </>
+                    )
+                } 
                 
 
             </Container>
