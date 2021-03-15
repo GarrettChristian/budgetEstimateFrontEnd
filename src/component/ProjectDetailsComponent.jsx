@@ -12,6 +12,7 @@ import UnitComponent from "./UnitComponent";
 import StaffComponent from "./StaffComponent";
 import AuthenticatedRoute from './AuthenticatedRoute';
 import Nav from 'react-bootstrap/Nav'
+import ProjectService from '../service/ProjectService.jsx'
 
 class ProjectDetailsComponent extends Component {
 
@@ -19,11 +20,26 @@ class ProjectDetailsComponent extends Component {
         super(props)
 
         this.state = {
-            key: this.props.key
+            key: this.props.key,
+            owner: false
         }
 
         this.handleSelect = this.handleSelect.bind(this);
         this.handleSelectSummary = this.handleSelectSummary.bind(this);
+        this.refreshOwner = this.refreshOwner.bind(this);
+    }
+
+    componentDidMount() {
+        this.refreshOwner();
+    }
+
+    refreshOwner() {
+        ProjectService.isOwner(this.props.match.params.id)
+            .then(
+                response => {
+                    this.setState({ owner: response.data })
+                }
+            )
     }
 
     handleSelect(selctedKey) {
@@ -31,17 +47,18 @@ class ProjectDetailsComponent extends Component {
         this.props.history.push({
             pathname: url + '/' + selctedKey,
             state: { key: selctedKey,
-            url: url },
+                url: url,
+                owner: this.state.owner },
         })
     }
 
     handleSelectSummary(selctedKey) {
         this.props.history.push({
             pathname: this.props.match.url,
-            state: { key: selctedKey }
+            state: { key: selctedKey,
+                owner: this.state.owner }
         })
     }
-
 
     render() {
         let path = this.props.match.path

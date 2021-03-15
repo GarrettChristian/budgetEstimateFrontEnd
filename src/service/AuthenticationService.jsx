@@ -68,7 +68,7 @@ class AuthenticationService {
     getLoggedInUsersNameFirstLast() {
         return axios.get(`${url}/users/name`, {
             headers: {
-              'Authorization':  localStorage.getItem("JWT")
+              Authorization:  localStorage.getItem("JWT")
             }
         })
     }

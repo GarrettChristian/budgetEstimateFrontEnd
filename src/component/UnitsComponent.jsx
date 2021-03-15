@@ -29,8 +29,7 @@ class UnitsComponent extends Component {
 
 
     refreshUnits() {
-
-        console.log("here??? " + this.props.match.params.id)
+        console.log("Refershing this shows units " + this.props.match.params.id)
 
         ProjectService.retrieveUnitOverview(this.props.match.params.id)
         .then(
@@ -41,51 +40,6 @@ class UnitsComponent extends Component {
                 this.setState({units: response.data.units})
             }
         )
-
-        // console.log("unit refreshing!")
-        // console.log(unitOverview)
-        // console.log(this.state.staff)
-
-        // this.setState({units : unitOverview.units})
-        // this.setState({totals : unitOverview})
-
-        // var arry = []
-
-        // var unit1 = {
-        //     id: 1,
-        //     name: "Flat 1",
-        //     description: "fake desciription flat1",
-        //     build: 2,
-        //     buildComplete: 2,
-        //     loadIn: 2,
-        //     loadInComplete: 1,
-        //     materials: 7,
-        //     completion: Math.floor((2 + 1) / (2 + 2) * 100)
-        // }
-        // var unit2 = {
-        //     id: 2,
-        //     name: "Flat 2",
-        //     description: "fake desciription flat2",
-        //     build: 22,
-        //     buildComplete: 12,
-        //     loadIn: 22,
-        //     loadInComplete: 0,
-        //     materials: 72,
-        //     completion: Math.floor((12 + 0) / (22 + 22) * 100)
-        // }
-
-        // arry.push(unit1)
-        // arry.push(unit2)
-
-        // this.setState({ units: arry })
-
-        // var total = {
-        //     build: 24.1,
-        //     loadIn: 24.1,
-        //     materials: 79.1
-        // }
-
-        // this.setState({ totals: total })
     }
 
     handleChange(event) {
@@ -112,14 +66,11 @@ class UnitsComponent extends Component {
     render() {
         return (
             <Container className="mt-3">
-                {/* <h2>{this.props.match.params.id}</h2>
-                <h2>UNITS</h2>
-                <Button onClick={this.addUnitClicked.bind(this)}>add new unit??</Button> */}
-                {/* <ProgressBar className="mt-2" striped now={45} label={`${45}%`} /> */}
                 
                 <h2 className="border-bottom-custom">Project Units</h2>
 
                 {/* Create New Unit Button */}
+                {this.props.location.state.owner && 
                 <Row className="mt-3">
                     <Col xs={2}/>
                     <Col>
@@ -127,6 +78,7 @@ class UnitsComponent extends Component {
                     </Col>
                     <Col xs={2}/>
                 </Row>
+                }
 
                 <Table className="mt-3" striped bordered hover>
                     <thead>

@@ -269,18 +269,6 @@ class AddUnitComponent extends Component {
         });
     };
 
-    // handleMaterialDescriptionChange(index, item, event) {
-
-    //     const materials = [...this.state.materials];
-
-    //     item.description = event.target.value 
-    //     materials.splice(index, 1, item); // replaces 1 element at specificed index
-
-    //     this.setState({
-    //         materials
-    //     });
-    // };
-
     handleMaterialVendorChange(index, item, event) {
 
         const materials = [...this.state.materials];

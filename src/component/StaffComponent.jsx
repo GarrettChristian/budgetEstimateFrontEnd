@@ -9,6 +9,8 @@ import ModalHeader from 'react-bootstrap/ModalHeader'
 import ModalFooter from 'react-bootstrap/ModalFooter'
 import ModalTitle from 'react-bootstrap/ModalTitle'
 import ModalBody from 'react-bootstrap/ModalBody'
+import Form from 'react-bootstrap/Form'
+import ProjectService from '../service/ProjectService.jsx'
 
 class StaffComponent extends Component {
 
@@ -17,18 +19,24 @@ class StaffComponent extends Component {
 
         this.state = {
             staff: [],
-            showModal: false
+            showModal: false,
+            username: '',
+            owner: false,
+            errorMessage: '',
+            showErrorMessage: false
         }
 
         this.handleChange = this.handleChange.bind(this)
         this.refreshStaff = this.refreshStaff.bind(this)
         this.toggle = this.toggle.bind(this);
+        this.addStaffClicked = this.addStaffClicked.bind(this);
     }
 
     handleChange(event) {
         this.setState(
             {[event.target.name]: event.target.value}
         )
+        console.log(this.state.username)
     }
 
     componentDidMount() {
@@ -36,38 +44,36 @@ class StaffComponent extends Component {
     }
 
     refreshStaff() {
-        // ProjectService.retrieveProject(this.props.match.params.id)
-        //     .then(
-        //         response => {
-        //             this.setState({ project: response.data })
-        //         }
-        //     )
-
-        var arry = []
-
-        var user1 = {
-            firstName: "Garrett",
-            lastName: "Christian",
-            owner: "Owner",
-            username: "GarrettChristian2@gmail.com"
-        }
-
-        var user2 = {
-            firstName: "Brian",
-            lastName: "Smallwood",
-            owner: "Not Owner",
-            username: "brian@gmail.com"
-        }
-
-        arry.push(user1)
-        arry.push(user2)
-
-        this.setState({ staff: arry })
+        ProjectService.retrieveStaff(this.props.match.params.id)
+            .then(
+                response => {
+                    this.setState({ staff: response.data })
+                }
+            )
     }
 
     addStaffClicked() {
         console.log("add staff")
-        this.refreshStaff();
+        ProjectService.addStaffToProject(this.state.username, 
+            this.props.match.params.id, 
+            this.state.owner)
+            .then((response) => {
+                if (response.data.success) {
+                    this.refreshStaff();
+                    this.setState({showModal: !this.state.showModal});
+                    console.log("added staff successfully")
+                    this.setState({ showErrorMessage: false })
+                } else {
+                    console.log("failed to add staff")
+                    this.setState({ showErrorMessage: true })
+                    this.setState({errorMessage: "Failed to Add Staff"})
+                }
+                
+            }).catch(() => {
+                console.log("error adding staff")
+                this.setState({ showErrorMessage: true })
+                this.setState({errorMessage: "Error Adding Staff"})
+            })
     }
 
     toggle() {
@@ -80,30 +86,41 @@ class StaffComponent extends Component {
                 
                 <h2 className="border-bottom-custom">Staff</h2>
 
-                {/* Create New Unit Button */}
+                {this.props.location.state.owner && 
                 <Row className="mt-3">
                     <Col xs={2}/>
                     <Col>
-                        <Button block onClick={this.addStaffClicked.bind(this)}>Add User to Show</Button>
+                        <Button block onClick={this.toggle}>Add User to Show</Button>
                     </Col>
                     <Col xs={2}/>
                 </Row>
-
-                <Button variant="primary" onClick={this.toggle}>
-                    Launch demo modal
-                </Button>
+                }
 
                 <Modal show={this.state.showModal}>
                     <ModalHeader closeButton onClick={this.toggle}>
-                    <ModalTitle>Modal heading</ModalTitle>
+                    <ModalTitle>Add User</ModalTitle>
                     </ModalHeader>
-                    <ModalBody>Woohoo, you're reading this text in a modal!</ModalBody>
+                    <ModalBody>
+                        <Form>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email"
+                            name="username" value={this.state.username}
+                            onChange={this.handleChange}/>
+                        </Form.Group>
+                        <Form.Group controlId="formBasicCheckbox">
+                            <Form.Check type="checkbox" label="Project Owner?"
+                            name="owner" value={this.state.owner}
+                            onChange={this.handleChange}/>
+                        </Form.Group>
+                        </Form>
+                    </ModalBody>
                     <ModalFooter>
                     <Button variant="secondary" onClick={this.toggle}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={this.toggle}>
-                        Save Changes
+                    <Button variant="primary" onClick={this.addStaffClicked}>
+                        Add User!
                     </Button>
                     </ModalFooter>
                 </Modal>
@@ -112,8 +129,6 @@ class StaffComponent extends Component {
                 <thead>
                     <tr>
                     <th>Username</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
                     <th>Owner</th>
                     </tr>
                 </thead>
@@ -122,9 +137,7 @@ class StaffComponent extends Component {
                             staff =>
                             <tr>
                             <td>{staff.username}</td>
-                            <td>{staff.firstName}</td>
-                            <td>{staff.lastName}</td>
-                            <td>{staff.owner}</td>                       
+                            <td>{(staff.owner ? 'Project Owner' : 'Staff Member')}</td>                       
                             </tr>
                         )
                     } 

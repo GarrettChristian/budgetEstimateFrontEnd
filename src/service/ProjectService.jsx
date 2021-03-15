@@ -11,7 +11,7 @@ class ProjectService {
   retrieveAllProjects() {
       return axios.get(`${PROJECT_API_URL}/get/all/user`, {
           headers: {
-            'Authorization': localStorage.getItem("JWT")
+            Authorization: localStorage.getItem("JWT")
           }
         }
       );
@@ -20,7 +20,7 @@ class ProjectService {
   retrieveProject(id) {
       console.log("look here it is?? ", localStorage.getItem("JWT"))
       let config = {
-        headers: {'Authorization': localStorage.getItem("JWT")},
+        headers: {Authorization: localStorage.getItem("JWT")},
         params: {
           id: id
         },
@@ -30,30 +30,67 @@ class ProjectService {
   }
 
   createNewProject(project) {
-      return axios.post(`${PROJECT_API_URL}/add/new`, project, {
-          headers: {
-            'Authorization':  localStorage.getItem("JWT")
-          }
-        }
-      );
+    let config = {
+      headers: {Authorization: localStorage.getItem("JWT")},
+    }
+
+    return axios.post(`${PROJECT_API_URL}/add/new`, project, config);
   }
+
+  // STAFF
+
+  retrieveStaff(projectId) {
+    let config = {
+      params: {
+        projectId: projectId
+      },
+      headers: {Authorization: localStorage.getItem("JWT")},
+    }
+
+    return axios.get(`${PROJECT_API_URL}/staff/all`, config);
+  }
+
+  addStaffToProject(username, projectId, owner) {
+    let config = {
+      params: {
+        username: username,
+        projectId: projectId,
+        owner: owner
+      },
+      headers: {Authorization: localStorage.getItem("JWT")},
+    }
+
+    return axios.post(`${PROJECT_API_URL}/staff/new`, {}, config);
+  }
+
+  isOwner(projectId) {
+    let config = {
+      params: {
+        projectId: projectId
+      },
+      headers: {Authorization: localStorage.getItem("JWT")},
+    }
+
+    return axios.get(`${PROJECT_API_URL}/owner`, config);
+  }
+
+  // UNIT
 
   createNewUnit(unit) {
     return axios.post(`${PROJECT_API_URL}/unit/new`, unit, {
         headers: {
-          'Authorization':  localStorage.getItem("JWT")
+          Authorization:  localStorage.getItem("JWT")
         }
       }
     );
   }
 
   retrieveUnitOverview(projectId) {
-    console.log("artist " + projectId)
     let config = {
-      headers: {'Authorization': localStorage.getItem("JWT")},
       params: {
         projectId: projectId
       },
+      headers: {Authorization: localStorage.getItem("JWT")},
     }
 
     return axios.get(`${PROJECT_API_URL}/unit/get/overview`, config);
@@ -61,11 +98,11 @@ class ProjectService {
 
   retrieveUnit(unitId, projectId) {
     let config = {
-      headers: {'Authorization': localStorage.getItem("JWT")},
       params: {
         unitId: unitId,
         projectId: projectId
       },
+      headers: {Authorization: localStorage.getItem("JWT")},
     }
 
     return axios.get(`${PROJECT_API_URL}/unit/get`, config);
