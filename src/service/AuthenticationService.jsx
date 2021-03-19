@@ -6,6 +6,7 @@ import { config } from './Constants'
 var url = config.url.API_URL
 
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+// export const USER_FIRST_AND_LAST_SESSION_ATTIRBUTE = 'user'
 
 class AuthenticationService {
 
@@ -24,7 +25,12 @@ class AuthenticationService {
 
     registerSuccessfulLoginForJwt(username, token) {
         sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
-        this.setupAxiosInterceptors(this.createJWTToken(token))
+        console.log(this.createJWTToken(token))
+        // this.setupAxiosInterceptors(this.createJWTToken(token))
+        localStorage.setItem("JWT", this.createJWTToken(token))
+        console.log("stored ", this.createJWTToken(token))
+        console.log("and it's right here ", localStorage.getItem("JWT"))
+
     }
 
     createJWTToken(token) {
@@ -47,20 +53,36 @@ class AuthenticationService {
         return user
     }
 
-    setupAxiosInterceptors(token) {
-        axios.interceptors.request.use(
-            (config) => {
-                if (this.isUserLoggedIn()) {
-                    config.headers.authorization = token
-                }
-                return config
-            }
-        )
-    }
+    // setupAxiosInterceptors(token) {
+    //     axios.interceptors.request.use(
+    //         (config) => {
+    //             if (this.isUserLoggedIn()) {
+    //                 config.headers.authorization = token
+    //                 console.log(config.headers.authorization)
+    //             }
+    //             return config
+    //         }
+    //     )
+    // }
 
     getLoggedInUsersNameFirstLast() {
-        return axios.get(`${url}/users/name`, )
+        return axios.get(`${url}/users/name`, {
+            headers: {
+              Authorization:  localStorage.getItem("JWT")
+            }
+        })
     }
+
+    // registerFirstAndLastName(name) {
+    //     sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, name)
+    // }
+
+    // getLoggedInUsersNameFirstLastFromStored() {
+    //     let user = sessionStorage.getItem(USER_FIRST_AND_LAST_SESSION_ATTIRBUTE)
+    //     if (user === null) return ''
+    //     return user
+    // }
+
 }
 
 export default new AuthenticationService()

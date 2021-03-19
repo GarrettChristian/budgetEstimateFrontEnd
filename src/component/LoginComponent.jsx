@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
-import AuthenticationService from '../service/AuthenticationService';
+import AuthenticationService from '../service/AuthenticationService'
+import Form from 'react-bootstrap/Form'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
 
 class LoginComponent extends Component {
 
-constructor(props) {
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -39,8 +44,11 @@ constructor(props) {
         AuthenticationService
             .executeJwtAuthenticationService(this.state.username, this.state.password)
             .then((response) => {
+                console.log("here???")
                 AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, response.data.token)
-                this.props.history.push(`/shows`)
+                console.log("here 22???")
+                this.props.history.push(`/projects`)
+                console.log("here 23???")
             }).catch(() => {
                 this.setState({ showErrorMessage: true })
                 this.setState({ errorMessage: 'Login Error' })
@@ -49,42 +57,45 @@ constructor(props) {
 
     render() {
         return (
-            <div className="container">
+            <Container>
 
-                <div className="row">
-                    <div className="col-md-3"></div>
+                <Row>
+                    <Col xs={3}/>
 
-                    <div className="mx-auto col mt-5 border-custom">
+                    <Col className="mt-5 border-custom">
                         <h2>Login</h2>
 
-                        {/* Email */}
-                        <div className="form-group">
-                            <label>Email address</label>
-                            <input type="email" className="form-control" placeholder="Enter email" id="username"
-                            name="username" value={this.state.username} onChange={this.handleChange} />
-                        </div>
+                        <Form>
+                            <Form.Group controlId="formGroupEmail">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email" 
+                                name="username" value={this.state.username} onChange={this.handleChange}/>
+                            </Form.Group>
+                            <Form.Group controlId="formGroupPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" placeholder="Password"
+                                name="password" value={this.state.password} onChange={this.handleChange}/>
+                            </Form.Group>
+                            
+                            <Button variant="primary" size="md" block onClick={this.loginClicked}>Submit</Button>
 
-                        {/* Password */}
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input type="password" className="form-control" placeholder="Enter password" id="password"
-                            name="password" value={this.state.password} onChange={this.handleChange} />
-                        </div>
+                            <p className="forgot-password text-right">
+                                <a href="new/user/">Create Account</a>
+                            </p>
 
-                        <button type="submit" className="btn btn-primary btn-block" onClick={this.loginClicked}>Submit</button>
+                            { this.state.showErrorMessage && // login error message
+                            <div className="alert alert-warning" role="alert">{this.state.errorMessage}</div>
+                            }
+                        </Form>
 
-                        <p className="forgot-password text-right">
-                            <a href="new/user/">Create Account</a>
-                        </p>
+                        
 
-                        { this.state.showErrorMessage && // login error message
-                        <div className="alert alert-warning" role="alert">{this.state.errorMessage}</div>
-                        }
+                    </Col>
 
-                    </div>
-                    <div className="col-md-3"></div>
-                </div>
-            </div>
+                    <Col xs={3}/>
+                </Row>
+                
+            </Container>
 
         )
     }
