@@ -1,11 +1,11 @@
 // Constants.js
 // following: https://medium.com/@a.carreras.c/development-and-production-variables-for-react-apps-c04af8b430a5
 
-// const production = {
-//     url: {
-//         API_URL: "https://thea-budget-estimate.herokuapp.com"
-//     }
-// };
+const production = {
+    url: {
+        API_URL: "https://thea-budget-estimate.herokuapp.com"
+    }
+};
 
 const dev = {
     url: {
