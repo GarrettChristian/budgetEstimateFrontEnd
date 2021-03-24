@@ -3,7 +3,7 @@
 
 const production = {
     url: {
-        API_URL: "https://thea-budget-estimate.herokuapp.com" // TODO fix
+        API_URL: "https://thea-budget-estimate.herokuapp.com"
     }
 };
 
@@ -13,4 +13,4 @@ const dev = {
     }
 };
 
-export const config = process.env.NODE_ENV === "development" ? dev: production;
+export const config = process.env.NODE_ENV === "production" ? production : dev;
