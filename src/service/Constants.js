@@ -1,17 +1,17 @@
 // Constants.js
 // following: https://medium.com/@a.carreras.c/development-and-production-variables-for-react-apps-c04af8b430a5
 
-const production = {
+// const production = {
+//     url: {
+//         API_URL: "https://thea-budget-estimate.herokuapp.com"
+//     }
+// };
+
+const dev = {
     url: {
+        // API_URL: "http://localhost:8080"
         API_URL: "https://thea-budget-estimate.herokuapp.com"
     }
 };
 
-const dev = {
-    url: {
-        API_URL: "http://localhost:8080"
-    }
-};
-
-// export const config = process.env.NODE_ENV === "development" ? dev : production;
-export const config = process.env.NODE_ENV === "production" ? production : dev;
+export const config = process.env.NODE_ENV === "development" ? dev : production;
