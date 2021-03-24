@@ -16,6 +16,7 @@ class AuthenticationService {
     }
 
     executeJwtAuthenticationService(username, password) {
+        console.log(process.env.NODE_ENV)
         console.log(username);
         return axios.post(`${url}/authenticate`, {
             username,
