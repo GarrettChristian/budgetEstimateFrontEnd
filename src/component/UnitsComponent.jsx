@@ -16,7 +16,8 @@ class UnitsComponent extends Component {
         this.state = {
             units: [],
             totals: '',
-            stuff: ''
+            stuff: '',
+            owner: this.props.location.state.owner
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -51,7 +52,7 @@ class UnitsComponent extends Component {
     addUnitClicked() {
         // this.props.history.push(`/projects`)
         this.props.history.push({
-            pathname: 'units/new',
+            pathname: 'units/new', 
             state: { unitId: 1},
         })
     }
@@ -59,18 +60,20 @@ class UnitsComponent extends Component {
     unitClicked(unit) {
         this.props.history.push({
             pathname: 'unit',
-            state: { unitId: unit.id},
+            state: { unitId: unit.id,
+                owner: this.state.owner},
         })
     }
 
     render() {
+        console.log(this.state.owner)
         return (
             <Container className="mt-3">
                 
                 <h2 className="border-bottom-custom">Project Units</h2>
 
                 {/* Create New Unit Button */}
-                {this.props.location.state.owner && 
+                {this.state.owner && 
                 <Row className="mt-3">
                     <Col xs={2}/>
                     <Col>

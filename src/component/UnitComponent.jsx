@@ -14,7 +14,8 @@ class UnitComponent extends Component {
             unit: '',
             loadInList: [],
             buildList: [],
-            materials: []
+            materials: [],
+            owner: this.props.location.state.owner
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -57,22 +58,24 @@ class UnitComponent extends Component {
     }
 
     render() {
-
+        
+        console.log(this.state.owner)
         return (
             <Container className="mt-3">
 
                 <h2 className="border-bottom-custom">{this.state.unit.name}</h2>
 
                 <Row className="mt-3">
-                    <Col xs={8}/>
+                    <Col xs={6}/>
+                    {this.state.owner ? (
+                    <Col xs={3}>
+                        <Button block variant="danger" onClick={this.deleteUnitClicked.bind(this)}>Delete Unit</Button>
+                    </Col> ) : (
+                    <Col xs={3}/>
+                    )}
                     <Col xs={3}>
                         <Button block variant="success" onClick={this.markAllFinishedClicked.bind(this)}>Mark All Finished</Button>
                     </Col>
-                    {this.props.location.state.owner && 
-                    <Col xs={2}>
-                        <Button block variant="danger" onClick={this.deleteUnitClicked.bind(this)}>Delete Unit</Button>
-                    </Col>
-                    }
                 </Row>
 
                 <h4 className="border-bottom-custom">Description</h4>
