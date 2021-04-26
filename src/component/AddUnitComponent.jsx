@@ -17,7 +17,7 @@ class AddUnitComponent extends Component {
             buildItems: [],
             loadInItems: [],
             materials: [],
-            errorMessage: '',
+            errorMessage: 'Error Adding the Unit',
             showErrorMessage: false,
         }
 
@@ -34,17 +34,30 @@ class AddUnitComponent extends Component {
         var unitSubcomponents = this.state.buildItems
         unitSubcomponents = unitSubcomponents.concat(this.state.loadInItems)
 
+        var rank = 0
+        unitSubcomponents.forEach(function(subcomponent) {
+            subcomponent.rank = rank;
+            rank++
+        });
+
+        var materialsList = this.state.materials
+        materialsList.forEach(function(subcomponent) {
+            subcomponent.rank = rank;
+            rank++
+        });
+
         console.log(unitSubcomponents)
 
         var unit = {
             name: this.state.unitName,
             description: this.state.unitDescription,
             subcomponents: unitSubcomponents,
-            materials: this.state.materials,
+            materials: materialsList,
             projectId: this.props.match.params.id
         }
 
         console.log(unit)
+        console.log(JSON.stringify(unit));
         console.log(this.props.match.params.id)
 
         ProjectService
@@ -57,13 +70,13 @@ class AddUnitComponent extends Component {
                 } else {
                     console.log("unit creation failed")
                     this.setState({ showErrorMessage: true })
-                    this.setState({errorMessage: "Project creation failed"})
+                    this.setState({errorMessage: "Error Adding Unit Please Review"})
                 }
                 
             }).catch(() => {
                 console.log("unit creation error")
                 this.setState({ showErrorMessage: true })
-                this.setState({errorMessage: "Project creation failed"})
+                this.setState({errorMessage: "Failed to Add Unit Please Review"})
             })
     }
 
@@ -94,6 +107,7 @@ class AddUnitComponent extends Component {
                 buildItems
             };
         });
+
     }
 
     handleBuildNameChange(index, item, event) {
@@ -166,7 +180,7 @@ class AddUnitComponent extends Component {
                 description: "",
                 workHours: "",
                 numberOfCrew: "",
-                type: "LOAD IN"
+                type: "LOAD_IN"
             }
 
             const loadInItems = [...state.loadInItems, newSubItem]
@@ -506,6 +520,10 @@ class AddUnitComponent extends Component {
                         <Button block onClick={this.addClicked.bind(this)}>Add Unit</Button>
                     </Col>
                 </Row>
+                { this.state.showErrorMessage && // show creation error
+                    <div className="alert alert-warning" role="alert">{this.state.errorMessage}</div>
+                }
+                <br></br>
 
             </Container>
         )

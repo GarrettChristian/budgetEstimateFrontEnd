@@ -26,7 +26,10 @@ class NavigationBar extends Component{
         return(
             <>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="/">Budget Tracker</Navbar.Brand>
+                {this.state.isLoggedIn ? // logged in
+                    <Navbar.Brand href="/projects">Budget Tracker</Navbar.Brand>
+                    : // not logged in
+                    <Navbar.Brand href="/">Budget Tracker</Navbar.Brand>}
                 <Nav className="mr-auto">
                 <Nav.Link href="/projects">Projects</Nav.Link>
                 <Nav.Link href="/about">About</Nav.Link>

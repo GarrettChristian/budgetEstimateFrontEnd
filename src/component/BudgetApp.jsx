@@ -16,46 +16,12 @@ import ProjectDetailsComponent from "./ProjectDetailsComponent"
 
 class BudgetApp extends Component {
 
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     isLoggedIn : AuthenticationService.isUserLoggedIn()
-  //   }
-  //   this.handleChange = this.handleChange.bind(this)
-  // }
-
-  // handleChange(event) {
-  //       this.setState(
-  //           {
-  //               [event.target.name]
-  //                   : event.target.value
-  //           }
-  //       )
-  //   }
-
-  //   componentDidUpdate(prevProps) {
-  //       console.log("did update")
-  //       if (this.props.location.pathname !== prevProps.location.pathname) {
-  //           console.log("update!", this.state.loggedIn)
-  //           var event
-  //           event.target.name = this.state.loggedIn;
-  //           event.target.value = AuthenticationService.isUserLoggedIn();
-  //           this.handleChange(event)
-  //           // var loggedInUser = AuthenticationService.isUserLoggedIn()
-  //           // this.setState({loggedIn, isUserLoggedIn})
-  //           // this.setState(this.state.loggedInUserName, loggedInUser)
-  //       }
-  //   }
-
   render() {
-    // var loggedIn = AuthenticationService.isUserLoggedIn()
-    // var loggedInUserName = AuthenticationService.getLoggedInUserName()
 
       return (
           <>
           <Router>
-              {/* <NavigationBar isLoggedIn={this.state.loggedIn}/> */}
-              <NavigationBar/>
+            <NavigationBar/>
             <div>
       
               <Switch>
@@ -67,7 +33,6 @@ class BudgetApp extends Component {
                   <AuthenticatedRoute path="/projects" exact component={ListProjectsComponent} />
                   <AuthenticatedRoute path="/projects/create" exact component={AddProjectComponent} />
                   <AuthenticatedRoute path="/project/:id" component={ProjectDetailsComponent}/>
-                  {/* <AuthenticatedRoute path="/project/:id" render={(props) => <ProjectDetailsComponent {...props} />} /> */}
               </Switch>
             </div>
           </Router>

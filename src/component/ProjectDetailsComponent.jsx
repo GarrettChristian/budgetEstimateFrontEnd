@@ -83,6 +83,7 @@ class ProjectDetailsComponent extends Component {
 
                 <Switch>
                     <AuthenticatedRoute exact path={path} component={SummaryComponent}/>
+                    {/* <AuthenticatedRoute exact path={path} render={(props) => (<SummaryComponent {...props} owner={this.state.owner} />)}/> */}
                     <AuthenticatedRoute exact path={`${path}/staff`} component={StaffComponent} />
                     <AuthenticatedRoute exact path={`${path}/units`} component={UnitsComponent} />
                     <AuthenticatedRoute exact path={`${path}/unit`} component={UnitComponent} />

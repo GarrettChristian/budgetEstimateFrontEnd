@@ -17,7 +17,8 @@ class UnitsComponent extends Component {
             units: [],
             totals: '',
             stuff: '',
-            owner: this.props.location.state.owner
+            owner: this.props.location.state.owner,
+            projectId: this.props.match.params.id
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -30,9 +31,9 @@ class UnitsComponent extends Component {
 
 
     refreshUnits() {
-        console.log("Refershing this shows units " + this.props.match.params.id)
+        console.log("Refershing this shows units " + this.state.projectId)
 
-        ProjectService.retrieveUnitOverview(this.props.match.params.id)
+        ProjectService.retrieveUnitOverview(this.state.projectId)
         .then(
             response => {
                 console.log(response)
@@ -50,7 +51,6 @@ class UnitsComponent extends Component {
     }
 
     addUnitClicked() {
-        // this.props.history.push(`/projects`)
         this.props.history.push({
             pathname: 'units/new', 
             state: { unitId: 1},
@@ -66,7 +66,7 @@ class UnitsComponent extends Component {
     }
 
     render() {
-        console.log(this.state.owner)
+        
         return (
             <Container className="mt-3">
                 

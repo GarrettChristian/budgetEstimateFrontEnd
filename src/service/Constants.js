@@ -9,8 +9,8 @@ const production = {
 
 const dev = {
     url: {
-        // API_URL: "http://localhost:8080"
-        API_URL: "https://thea-budget-estimate.herokuapp.com"
+        API_URL: "http://localhost:8080"
+        // API_URL: "https://thea-budget-estimate.herokuapp.com"
     }
 };
 

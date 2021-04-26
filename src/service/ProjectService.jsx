@@ -18,7 +18,6 @@ class ProjectService {
   }
 
   retrieveProject(id) {
-      console.log("look here it is?? ", localStorage.getItem("JWT"))
       let config = {
         headers: {Authorization: localStorage.getItem("JWT")},
         params: {
@@ -35,6 +34,17 @@ class ProjectService {
     }
 
     return axios.post(`${PROJECT_API_URL}/add/new`, project, config);
+  }
+
+  deleteProject(projectId) {
+    let config = {
+      params: {
+        projectId: projectId
+      },
+      headers: {Authorization: localStorage.getItem("JWT")}
+    }
+
+    return axios.delete(`${PROJECT_API_URL}/delete`, config);
   }
 
   // STAFF
@@ -106,6 +116,42 @@ class ProjectService {
     }
 
     return axios.get(`${PROJECT_API_URL}/unit/get`, config);
+  }
+
+  deleteUnit(unitId, projectId) {
+    let config = {
+      params: {
+        unitId: unitId,
+        projectId: projectId
+      },
+      headers: {Authorization: localStorage.getItem("JWT")}
+    }
+
+    return axios.delete(`${PROJECT_API_URL}/unit/delete`, config);
+  }
+
+  markSubcomponentComplete(complete, subcomponentId) {
+    let config = {
+      params: {
+        complete: complete,
+        subcomponentId: subcomponentId
+      },
+      headers: {Authorization: localStorage.getItem("JWT")},
+    }
+
+    return axios.post(`${PROJECT_API_URL}/unit/subcomponent/complete`, {}, config);
+  }
+
+  markAllSubcomponentsComplete(complete, unitId) {
+    let config = {
+      params: {
+        complete: complete,
+        unitId: unitId
+      },
+      headers: {Authorization: localStorage.getItem("JWT")},
+    }
+
+    return axios.post(`${PROJECT_API_URL}/unit/subcomponents/complete`, {}, config);
   }
 
 }

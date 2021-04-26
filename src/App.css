@@ -43,6 +43,27 @@
   border-bottom: 1px solid #343a40;
 }
 
+.border-unit {
+  border-radius: 25px;
+  border: 1px solid #343a40;
+  padding: 10px;
+  margin: 10px;
+}
+
+.border-box {
+  /* border-left: 1px solid #343a40; */
+  border: 1px solid #343a40;
+  /* margin: 2px; */
+}
+
+.header-custom {
+  border: 1px solid #343a40;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
